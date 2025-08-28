@@ -1,13 +1,13 @@
-package com.jdy3.efarmers_market;
+package com.jdy3.efarmersmarket;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EFarmers_marketApp {
+public class App {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EFarmers_marketApp.class, args);
+		SpringApplication.run(App.class, args);
 	}
 
 }
