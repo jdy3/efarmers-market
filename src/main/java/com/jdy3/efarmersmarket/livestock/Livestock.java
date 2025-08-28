@@ -20,7 +20,7 @@ public class Livestock extends Product {
     }
 
     public Livestock(){
-        super(null, "", "", "", "", BigDecimal.ZERO, "", "", BigDecimal.ZERO)
+        super(null, "", "", "", "", BigDecimal.ZERO, "", "", BigDecimal.ZERO);
         this.age = 0.0d;
         this.quantity = 0;
         this.certification = "";
