@@ -4,10 +4,21 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
+/** Annotation on the abstract base class to allow mapping for the concrete child class tables */
+@MappedSuperclass
+
 public abstract class Product {
     /** Abstract class for all farm product category tables*/
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     protected UUID id;
+    
     protected LocalDate date;
     protected String name;
     protected String variety;

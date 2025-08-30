@@ -5,6 +5,12 @@ import java.time.LocalDate;
 
 import com.jdy3.efarmersmarket.Product;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "produce")
+
 public class Produce extends Product {
     /** Concrete child Produce class */
 
