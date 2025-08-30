@@ -28,7 +28,7 @@ public class Produce extends Product {
 
     /** Direct user to input allowed produce category values */
     public void setCategory(Category inputCategory){
-        if(!inputCategory.equals(Category.Cereal) || !inputCategory.equals(Category.Vegetable) || !inputCategory.equals(Category.Fruit)){
+        if(!inputCategory.equals(Category.Cereal) || !inputCategory.equals(Category.Vegetable) || !inputCategory.equals(Category.Fruit) || !inputCategory.equals(Category.None)){
             throw new IllegalArgumentException("Category must be Cereal, Vegetable or Fruit");
         }
         this.category = inputCategory; 
