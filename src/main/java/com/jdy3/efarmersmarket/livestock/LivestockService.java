@@ -42,7 +42,7 @@ public class LivestockService {
         return livestock;
     }
 
-    public Livestock updatLivestock(UUID id, Livestock updatedLivestock){
+    public Livestock updateLivestock(UUID id, Livestock updatedLivestock){
         Livestock existingLivestock = livestockRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
         existingLivestock.setDate(updatedLivestock.getDate());
@@ -61,7 +61,6 @@ public class LivestockService {
         livestockRepository.save(existingLivestock);
 
         return existingLivestock;
-
     }
 
     public void deleteLivestock(UUID id){
