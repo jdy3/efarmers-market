@@ -25,6 +25,14 @@ public class LivestockService {
         return livestockRepository.findAll();
     }
 
+    public List<Livestock> getLivestockByName(String name){
+        return livestockRepository.findByName(name);
+    }
+
+    public List<Livestock> getLivestockByProvenance(String farm){
+        return livestockRepository.findByProvenance(farm);
+    }
+
     public Livestock getLivestock(UUID id){
         return livestockRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
