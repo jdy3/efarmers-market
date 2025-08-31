@@ -27,16 +27,16 @@ public class ProduceService {
         return produceRepository.findAll();
     }
 
-    public List<Produce> getProduceByCategory(Category category){
+    public List<Produce> getProduceByCategory(Produce.Category category){
         return produceRepository.findByCategory(category);
-    }
-
-    public List<Produce> getProduceByExpiry(LocalDate expiry){
-        return produceRepository.findByExpiry(expiry);
     }
 
     public List<Produce> getProduceByName(String name){
         return produceRepository.findByName(name);
+    }
+
+     public List<Produce> getProduceByExpiry(LocalDate expiry){
+        return produceRepository.findByExpiry(expiry);
     }
 
     public List<Produce> getProduceByProvenance(String farm){
@@ -48,7 +48,7 @@ public class ProduceService {
     }
 
     public Produce createProduce(Produce produce){
-        produceRepository.save(Produce);
+        produceRepository.save(produce);
         return produce;
     }
 
