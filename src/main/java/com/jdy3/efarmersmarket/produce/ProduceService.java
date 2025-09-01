@@ -36,7 +36,7 @@ public class ProduceService {
     }
 
      public List<Produce> getProduceByExpiry(LocalDate expiry){
-        return produceRepository.findByExpiry(expiry);
+        return produceRepository.findByExpiryAfter(expiry);
     }
 
     public List<Produce> getProduceByProvenance(String farm){
