@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
-import java.util.Locale.Category;
 
 import org.springframework.stereotype.Service;
 
@@ -35,9 +34,9 @@ public class ProduceService {
         return produceRepository.findByName(name);
     }
 
-     public List<Produce> getProduceByExpiry(LocalDate expiry){
-        return produceRepository.findByExpiryAfter(expiry);
-    }
+    //  public List<Produce> getProduceByExpiry(LocalDate expiry){
+    //     return produceRepository.findByExpiryAfter(expiry);
+    // }
 
     public List<Produce> getProduceByProvenance(String farm){
         return produceRepository.findByProvenance(farm);
