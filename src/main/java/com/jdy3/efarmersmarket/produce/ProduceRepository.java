@@ -12,7 +12,7 @@ public interface ProduceRepository extends ListCrudRepository<Produce, UUID> {
     
     public List<Produce> findByCategory(Produce.Category category);
     public List<Produce> findByName(String name);
-    public List<Produce> findByProvenance(String farm);
+    public List<Produce> findByProvenance(String provenance);
 
     @Query("SELECT i FROM Produce i WHERE i.expiry.isAfter(:expiry)") public List<Produce> findByExpiryAfter(@Param("expiry") LocalDate expiry);
 

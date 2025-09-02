@@ -1,7 +1,5 @@
 package com.jdy3.efarmersmarket.produce;
 
-import java.math.BigDecimal;
-
 import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -38,8 +36,8 @@ public class ProduceService {
         return produceRepository.findByExpiryAfter(expiry);
     }
 
-    public List<Produce> getProduceByProvenance(String farm){
-        return produceRepository.findByProvenance(farm);
+    public List<Produce> getProduceByProvenance(String provenance){
+        return produceRepository.findByProvenance(provenance);
     }
 
     public Produce getProduce(UUID id){

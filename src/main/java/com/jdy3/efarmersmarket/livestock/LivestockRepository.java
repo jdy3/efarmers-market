@@ -7,6 +7,6 @@ import org.springframework.data.repository.ListCrudRepository;
 public interface LivestockRepository extends ListCrudRepository<Livestock, UUID>{
 
     public List<Livestock> findByName(String name);
-    public List<Livestock> findByProvenance(String farm);
+    public List<Livestock> findByProvenance(String provenance);
 
 }

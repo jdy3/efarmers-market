@@ -1,4 +1,4 @@
-package com.jdy3.efarmersmarket.livestock;import java.util.Locale.Category;
+package com.jdy3.efarmersmarket.livestock;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -31,11 +31,11 @@ public class LivestockController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<Livestock> getAllLivestock(@RequestParam(required = false) String name, String farm){
+    public List<Livestock> getAllLivestock(@RequestParam(required = false) String name, String provenance){
         if(name !=null && !name.isEmpty()){
             return livestockService.getLivestockByName(name);
-        } else if(farm !=null && !farm.isEmpty()){
-            return livestockService.getLivestockByProvenance(farm);
+        } else if(provenance !=null && !provenance.isEmpty()){
+            return livestockService.getLivestockByProvenance(provenance);
         } else return livestockService.getAllLivestock();
     }
 

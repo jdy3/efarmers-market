@@ -1,7 +1,5 @@
 package com.jdy3.efarmersmarket.livestock;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -29,8 +27,8 @@ public class LivestockService {
         return livestockRepository.findByName(name);
     }
 
-    public List<Livestock> getLivestockByProvenance(String farm){
-        return livestockRepository.findByProvenance(farm);
+    public List<Livestock> getLivestockByProvenance(String provenance){
+        return livestockRepository.findByProvenance(provenance);
     }
 
     public Livestock getLivestock(UUID id){

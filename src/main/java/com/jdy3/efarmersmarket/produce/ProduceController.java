@@ -36,13 +36,13 @@ public class ProduceController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<Produce> getAllProduce(@RequestParam(required = false) Produce.Category category, String name, String farm, LocalDate expiry){
+    public List<Produce> getAllProduce(@RequestParam(required = false) Produce.Category category, String name, String provenance, LocalDate expiry){
         if(category !=null){
             return produceService.getProduceByCategory(category);
         } else if(name !=null && !name.isEmpty()){
             return produceService.getProduceByName(name);
-        } else if(farm !=null && !farm.isEmpty()){
-            return produceService.getProduceByProvenance(farm);
+        } else if(provenance !=null && !provenance.isEmpty()){
+            return produceService.getProduceByProvenance(provenance);
         } else if(expiry !=null){
             return produceService.getProduceByExpiry(expiry);
         } else return produceService.getAllProduce();

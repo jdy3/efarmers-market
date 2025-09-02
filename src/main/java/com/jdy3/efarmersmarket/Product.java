@@ -25,18 +25,18 @@ public abstract class Product {
     protected String picture;
     protected String description;
     protected BigDecimal weight;
-    protected String farm;
+    protected String provenance;
     protected String location;
     protected BigDecimal price;
 
-    public Product(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String provenance, String collectionPoint, BigDecimal itemPrice){
+    public Product(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String productProvenance, String collectionPoint, BigDecimal itemPrice){
         this.date = entryDate;
         this.name = productName;
         this.variety = productVariety;
         this.picture = productPicture;
         this.description = productDescription;
         this.weight = kg;
-        this.farm = provenance;
+        this.provenance = productProvenance;
         this.location = collectionPoint;
         this.price = itemPrice;
     }
@@ -95,11 +95,11 @@ public abstract class Product {
    }
 
    public void setProvenance(String inputProvenance){
-    this.farm = inputProvenance;
+    this.provenance = inputProvenance;
    }
 
    public String getProvenance(){
-    return farm;
+    return provenance;
    }
 
    public void setLocation(String inputLocation){

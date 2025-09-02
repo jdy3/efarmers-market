@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.jdy3</groupId>
-	<artifactId>efarmersmarket</artifactId>
+	<artifactId>eprovenanceersmarket</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>eFarmer&apos;s Market</name>
-	<description>A RESTful API farmer&apos;s market platform</description>
+	<name>eprovenanceer&apos;s Market</name>
+	<description>A RESTful API provenanceer&apos;s market platform</description>
 	<url/>
 	<licenses>
 		<license/>
