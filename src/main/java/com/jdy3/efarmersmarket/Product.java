@@ -38,7 +38,7 @@ public abstract class Product {
     @OneToMany(mappedBy = "product")
     protected List<Transaction> transaction;
 
-    public Product(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String productProvenance, String collectionPoint, BigDecimal itemPrice){
+    public Product(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String productProvenance, String collectionPoint, BigDecimal productPrice){
         this.date = entryDate;
         this.name = productName;
         this.variety = productVariety;
@@ -47,7 +47,7 @@ public abstract class Product {
         this.weight = kg;
         this.provenance = productProvenance;
         this.location = collectionPoint;
-        this.price = itemPrice;
+        this.price = productPrice;
     }
 
     /** Default table values for a no argument constructor call*/

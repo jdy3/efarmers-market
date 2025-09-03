@@ -17,8 +17,8 @@ public class ProduceTransaction extends Transaction {
 
     protected BigDecimal weightBought;
 
-    public ProduceTransaction(UUID productId, BigDecimal weightBought){
-        super(productId);
+    public ProduceTransaction(UUID productId, BigDecimal cost, BigDecimal weightBought){
+        super(productId, cost);
         this.weightBought = weightBought;
     }
 

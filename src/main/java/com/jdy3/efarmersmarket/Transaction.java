@@ -1,5 +1,6 @@
 package com.jdy3.efarmersmarket;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -40,7 +41,10 @@ protected Product product;
 @CreationTimestamp
 protected Instant timeStamp;
 
-public Transaction(UUID productId){
+protected BigDecimal cost;
+
+public Transaction(UUID productId, BigDecimal transactionCost){
+    this.cost = transactionCost;
 }
 
 }
