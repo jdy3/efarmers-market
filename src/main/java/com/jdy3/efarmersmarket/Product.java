@@ -13,7 +13,7 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 
 public abstract class Product {
-    /** Abstract class for all farm product category tables*/
+    /** Abstract class for all farm product tables*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
