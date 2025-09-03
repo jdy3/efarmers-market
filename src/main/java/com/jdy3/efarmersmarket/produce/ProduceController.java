@@ -43,8 +43,6 @@ public class ProduceController {
             return produceService.getProduceByName(name);
         } else if(provenance !=null && !provenance.isEmpty()){
             return produceService.getProduceByProvenance(provenance);
-        } else if(expiry !=null){
-            return produceService.getProduceByExpiry(expiry);
         } else return produceService.getAllProduce();
     }
 
@@ -59,8 +57,9 @@ public class ProduceController {
         }
     }
 
-    @PostMapping(path = "/{id}", produces = "application/json")
+    @PostMapping(produces = "application/json")
     public ResponseEntity<Produce> createProduce(@RequestBody Produce produce){
+        System.out.println("recieved product");
         Produce createProduce = produceService.createProduce(produce);   
         return ResponseEntity.status(HttpStatus.CREATED).body(createProduce);
     }
