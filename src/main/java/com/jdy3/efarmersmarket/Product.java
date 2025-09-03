@@ -2,12 +2,18 @@ package com.jdy3.efarmersmarket;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 /** Annotation on the abstract base class to allow mapping for the concrete child class tables */
 @MappedSuperclass
@@ -28,6 +34,9 @@ public abstract class Product {
     protected String provenance;
     protected String location;
     protected BigDecimal price;
+
+    @OneToMany(mappedBy = "product")
+    protected List<Transaction> transaction;
 
     public Product(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String productProvenance, String collectionPoint, BigDecimal itemPrice){
         this.date = entryDate;

@@ -1,16 +1,28 @@
 package com.jdy3.efarmersmarket;
 
+import java.time.Instant;
+import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MappedSuperclass;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.Table;
 
 /** Annotation on the abstract base class to allow mapping for the concrete child class tables */
-@MappedSuperclass
+//@MappedSuperclass
+
+@Entity
+@Table(name = "transaction")
 
 public abstract class Transaction {
 /** Abstract class for all farm transaction tables */
@@ -20,10 +32,15 @@ public abstract class Transaction {
 @Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 protected long transactionId;
-@Column(name = "id")
 
-@OneToOne(cascade = CascadeType.ALL)
-@JoinColumn(name = "product_id", referencedColumnName = "id")
+@ManyToOne
+@JoinColumn(name = "productId")
 protected Product product;
+
+@CreationTimestamp
+protected Instant timeStamp;
+
+public Transaction(UUID productId){
+}
 
 }
