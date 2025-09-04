@@ -1,13 +1,12 @@
 package com.jdy3.efarmersmarket.produceTransaction;
 
-import com.jdy3.efarmersmarket.Product;
 import com.jdy3.efarmersmarket.Transaction;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-
 
 @Entity
 @Table(name = "produceTransactions")
@@ -15,19 +14,28 @@ import jakarta.persistence.Table;
 public class ProduceTransaction extends Transaction {
     /** Concrete child produce transaction entity */
 
-    protected BigDecimal weightBought;
+    protected BigDecimal weightToBuy;
+    protected BigDecimal cost = weightToBuy.multiply(this.productPrice);
 
-    public ProduceTransaction(Product product, BigDecimal cost, BigDecimal weightBought){
-        super(product, cost);
-        this.weightBought = weightBought;
+    public ProduceTransaction(UUID productId, BigDecimal weightToBuy){
+        super(productId);
+        this.weightToBuy = weightToBuy;
     }
 
-    public void setWeightBought(BigDecimal inputWeightBought){
-        this.weightBought = inputWeightBought;
+    public void setWeightToBuy(BigDecimal inputWeightBought){
+        this.weightToBuy = inputWeightBought;
     }
 
-    public BigDecimal getWeightBought(){
-        return weightBought;
+    public BigDecimal getWeightToBuy(){
+        return weightToBuy;
+    }
+
+    public void setCost(BigDecimal inputCost){
+        this.cost = inputCost;
+    }
+
+    public BigDecimal getCost(){
+        return cost;
     }
 
 }

@@ -6,6 +6,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -32,34 +33,33 @@ protected long transactionId;
 @JoinColumn(name = "productId")
 protected Product product;
 
+/** Retrieve product data */
+@Column(insertable=false, updatable=false)
+/** Annotation to ignore this field during INSERT and UPDATE operations as it is read only from the entity's perspective */
+protected UUID productId = product.id;
+protected BigDecimal productPrice = product.price;
+
 @CreationTimestamp
 protected Instant timeStamp;
 
-protected BigDecimal cost;
-
-public Transaction(Product product, BigDecimal transactionCost){
-    this.cost = transactionCost;
+public Transaction(UUID productId){
+    this.productId = productId;
 }
 
 public long getTransactionId(){
     return transactionId;
 }
 
-public Product getProduct(){
-    return product;
+public UUID getProductId(){
+    return product.id;
+}
+
+public BigDecimal getProductPrice(){
+    return productPrice;
 }
 
 public Instant getTimeStamp(){
     return timeStamp;
 }
-
-public void setCost(BigDecimal inputCost){
-    this.cost = inputCost;
-}
-
-public BigDecimal getCost(){
-    return cost;
-}
-
 
 }
