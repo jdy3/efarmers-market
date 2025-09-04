@@ -1,9 +1,9 @@
 package com.jdy3.efarmersmarket.livestockTransaction;
 
+import com.jdy3.efarmersmarket.Product;
 import com.jdy3.efarmersmarket.Transaction;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -16,8 +16,8 @@ public class LivestockTransaction extends Transaction {
 
     protected int quantityBought;
 
-    public LivestockTransaction(UUID productId, BigDecimal cost, int quantityBought){
-        super(productId, cost);
+    public LivestockTransaction(Product product, BigDecimal cost, int quantityBought){
+        super(product, cost);
         this.quantityBought = quantityBought;
     }
 

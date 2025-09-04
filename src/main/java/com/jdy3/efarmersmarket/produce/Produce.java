@@ -21,7 +21,7 @@ public class Produce extends Product {
 
     /** Restrict produce input category values */
     public enum Category {
-    @JsonProperty Cereal("Cereal"), @JsonProperty Vegetable("Vegetable"), @JsonProperty Fruit("Fruit"), @JsonProperty None("None");
+    Cereal("Cereal"), Vegetable("Vegetable"), Fruit("Fruit"), None("None");
     
     private final String value;
     Category(String value){
@@ -52,13 +52,9 @@ public class Produce extends Product {
 
     /** Direct user to input allowed produce category values */
     public void setCategory(Category inputCategory){
-        if(!inputCategory.equals(Category.Cereal) || !inputCategory.equals(Category.Vegetable) || !inputCategory.equals(Category.Fruit) || !inputCategory.equals(Category.None)){
-            throw new IllegalArgumentException("Category must be Cereal, Vegetable or Fruit");
-        }
         this.category = inputCategory; 
     }
 
-    @JsonValue
     public Category getCategory(){
         return category;
     }

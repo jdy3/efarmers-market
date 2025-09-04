@@ -37,8 +37,29 @@ protected Instant timeStamp;
 
 protected BigDecimal cost;
 
-public Transaction(UUID productId, BigDecimal transactionCost){
+public Transaction(Product product, BigDecimal transactionCost){
     this.cost = transactionCost;
 }
+
+public long getTransactionId(){
+    return transactionId;
+}
+
+public Product getProduct(){
+    return product;
+}
+
+public Instant getTimeStamp(){
+    return timeStamp;
+}
+
+public void setCost(BigDecimal inputCost){
+    this.cost = inputCost;
+}
+
+public BigDecimal getCost(){
+    return cost;
+}
+
 
 }

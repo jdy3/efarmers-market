@@ -1,8 +1,8 @@
 package com.jdy3.efarmersmarket.produceTransaction;
 
+import com.jdy3.efarmersmarket.Product;
 import com.jdy3.efarmersmarket.Transaction;
 
-import java.util.UUID;
 import java.math.BigDecimal;
 
 import jakarta.persistence.Entity;
@@ -17,8 +17,8 @@ public class ProduceTransaction extends Transaction {
 
     protected BigDecimal weightBought;
 
-    public ProduceTransaction(UUID productId, BigDecimal cost, BigDecimal weightBought){
-        super(productId, cost);
+    public ProduceTransaction(Product product, BigDecimal cost, BigDecimal weightBought){
+        super(product, cost);
         this.weightBought = weightBought;
     }
 

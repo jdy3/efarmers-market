@@ -59,7 +59,6 @@ public class ProduceController {
 
     @PostMapping(produces = "application/json")
     public ResponseEntity<Produce> createProduce(@RequestBody Produce produce){
-        System.out.println("recieved product");
         Produce createProduce = produceService.createProduce(produce);   
         return ResponseEntity.status(HttpStatus.CREATED).body(createProduce);
     }
