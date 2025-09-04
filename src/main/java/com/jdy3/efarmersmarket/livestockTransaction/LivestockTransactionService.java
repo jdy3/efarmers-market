@@ -2,7 +2,6 @@ package com.jdy3.efarmersmarket.livestockTransaction;
 
 import org.springframework.stereotype.Service;
 
-import com.jdy3.efarmersmarket.Product;
 import com.jdy3.efarmersmarket.livestock.Livestock;
 import com.jdy3.efarmersmarket.livestock.LivestockRepository;
 
@@ -47,13 +46,9 @@ public class LivestockTransactionService {
 
     public LivestockTransaction createLivestockTransaction(LivestockTransaction livestockTransaction) {
 
-        int quantityToBuy = livestockTransaction.getQuantityBought();
-        int productQuantity = 0;
-
-        Product livestock = livestockTransaction.getProduct();
-        if (livestock instanceof Livestock) {
-            productQuantity = ((Livestock) livestock).getQuantity();
-        }
+        Livestock livestock = livestockRepository.findById(livestockTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Livestock not found"));
+        int productQuantity = livestock.getQuantity();
+        int quantityToBuy = livestockTransaction.getQuantityToBuy();
 
         if (quantityToBuy > 0 && productQuantity > quantityToBuy ){
             

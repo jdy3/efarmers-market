@@ -1,6 +1,5 @@
 package com.jdy3.efarmersmarket.livestockTransaction;
 
-import com.jdy3.efarmersmarket.Product;
 import com.jdy3.efarmersmarket.Transaction;
 
 import java.math.BigDecimal;

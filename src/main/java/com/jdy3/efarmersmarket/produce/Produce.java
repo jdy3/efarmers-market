@@ -3,8 +3,6 @@ package com.jdy3.efarmersmarket.produce;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.jdy3.efarmersmarket.Product;
 
