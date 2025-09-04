@@ -28,7 +28,7 @@ public class LivestockTransactionService {
         return livestockTransactionRespository.findAll();
     }
 
-    public List<LivestockTransaction> getByProductId(UUID productId) {
+    public List<LivestockTransaction> getLivestockTransactionByProductId(UUID productId) {
         return livestockTransactionRespository.findByProductId(productId);
     }
 
@@ -68,6 +68,11 @@ public class LivestockTransactionService {
         } else throw new IllegalArgumentException("Quantity must be greater than 0 and less than the product quantitiy");
 
     return livestockTransaction;
-}
+    }
+
+    public void deleteLivestockTransaction(long transactionId){
+        LivestockTransaction livestockTransaction = livestockTransactionRespository.findById(transactionId).orElseThrow(NoSuchElementException::new);
+        livestockTransactionRespository.delete(livestockTransaction);
+    }
 
 }
