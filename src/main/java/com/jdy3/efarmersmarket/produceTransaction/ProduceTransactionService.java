@@ -2,7 +2,6 @@ package com.jdy3.efarmersmarket.produceTransaction;
 
 import org.springframework.stereotype.Service;
 
-import com.jdy3.efarmersmarket.livestockTransaction.LivestockTransaction;
 import com.jdy3.efarmersmarket.produce.Produce;
 import com.jdy3.efarmersmarket.produce.ProduceRepository;
 
