@@ -11,8 +11,8 @@ public interface LivestockTransactionRespository extends ListCrudRepository<Live
 
     public List<LivestockTransaction> findByProductId(UUID productId);
 
-    @Query("SELECT i FROM LivestockTransaction WHERE i.cost > (SELECT AVG(j.amount) FROM LivestockTransaction j)") public List<LivestockTransaction> findHighValueLivestockTransactions();
-    @Query("SELECT i FROM LivestockTransaction WHERE i.cost < (SELECT AVG(j.amount) FROM LivestockTransaction j)") public List<LivestockTransaction> findLowValueLivestockTransactions();
+    @Query("SELECT i FROM LivestockTransaction i WHERE i.cost > (SELECT AVG(j.cost) FROM LivestockTransaction j)") public List<LivestockTransaction> findHighValueLivestockTransactions();
+    @Query("SELECT i FROM LivestockTransaction i WHERE i.cost < (SELECT AVG(j.cost) FROM LivestockTransaction j)") public List<LivestockTransaction> findLowValueLivestockTransactions();
     
 
 
