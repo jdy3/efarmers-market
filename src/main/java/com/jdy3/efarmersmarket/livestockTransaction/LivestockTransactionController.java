@@ -17,7 +17,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/transactions/livestock-transactions")
 
-/** Controller layer for the Livestock class */
+/** Controller layer for the Livestock Transaction class */
 
 public class LivestockTransactionController {
 
@@ -28,8 +28,8 @@ public class LivestockTransactionController {
     }
 
     @GetMapping(produces = "application/json")
-    public List<LivestockTransaction> getAllLivestockTransactions(@RequestParam(required = false) UUID productId) {
-        if(productId !=null){
+    public List<LivestockTransaction> getAllLivestockTransactions(@RequestParam(required = false) UUID productId){
+        if(productId != null){
             return livestockTransactionService.getLivestockTransactionByProductId(productId);
         } else return livestockTransactionService.getAllLivestockTransactions();
     }

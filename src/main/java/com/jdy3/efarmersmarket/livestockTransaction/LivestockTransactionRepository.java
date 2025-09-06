@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import org.springframework.data.repository.ListCrudRepository;
 
-public interface LivestockTransactionRespository extends ListCrudRepository<LivestockTransaction, Long> {
+public interface LivestockTransactionRepository extends ListCrudRepository<LivestockTransaction, Long> {
 
     public List<LivestockTransaction> findByProductId(UUID productId);
 
