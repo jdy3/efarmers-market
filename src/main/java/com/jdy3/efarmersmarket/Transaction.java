@@ -34,10 +34,18 @@ protected long transactionId;
 protected Product product;
 
 /** Retrieve product data */
-@Column(insertable=false, updatable=false)
 /** Annotation to ignore this field during INSERT and UPDATE operations as it is read only from the entity's perspective */
+@Column(insertable=false, updatable=false)
 protected UUID productId = product.id;
+@Column(insertable=false, updatable=false)
 protected BigDecimal productPrice = product.price;
+
+protected String productName = product.name;
+protected String productVariety = product.variety;
+protected String productPicture = product.picture;
+protected String productDescription = product.description;
+protected String productProvenance = product.provenance;
+protected String productLocation = product.location;
 
 @CreationTimestamp
 protected Instant timeStamp;

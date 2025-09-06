@@ -22,8 +22,8 @@ public class ProduceTransaction extends Transaction {
         this.weightToBuy = weightToBuy;
     }
 
-    public void setWeightToBuy(BigDecimal inputWeightBought){
-        this.weightToBuy = inputWeightBought;
+    public void setWeightToBuy(BigDecimal inputWeightToBuy){
+        this.weightToBuy = inputWeightToBuy;
     }
 
     public BigDecimal getWeightToBuy(){

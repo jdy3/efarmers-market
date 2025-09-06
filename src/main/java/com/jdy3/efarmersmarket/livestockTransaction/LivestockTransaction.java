@@ -13,7 +13,6 @@ import jakarta.persistence.Table;
 
 public class LivestockTransaction extends Transaction {
     /** Concrete child livestock transaction entity */
-
     protected int quantityToBuy;
     protected BigDecimal cost = BigDecimal.valueOf(quantityToBuy).multiply(this.productPrice);
 
