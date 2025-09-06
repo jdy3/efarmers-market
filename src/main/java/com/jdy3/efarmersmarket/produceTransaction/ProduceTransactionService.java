@@ -2,6 +2,7 @@ package com.jdy3.efarmersmarket.produceTransaction;
 
 import org.springframework.stereotype.Service;
 
+import com.jdy3.efarmersmarket.livestockTransaction.LivestockTransaction;
 import com.jdy3.efarmersmarket.produce.Produce;
 import com.jdy3.efarmersmarket.produce.ProduceRepository;
 
@@ -28,7 +29,7 @@ public class ProduceTransactionService {
         return produceTransactionRepository.findAll();
     }
 
-    public List<ProduceTransaction> getProduceByProductId(UUID productId){
+    public List<ProduceTransaction> getProduceTransactionByProductId(UUID productId){
         return produceTransactionRepository.findByProductId(productId);
     }
 
@@ -38,6 +39,10 @@ public class ProduceTransactionService {
 
     public List<ProduceTransaction> getLowValuProduceTransactions(){
         return produceTransactionRepository.findLowValueProduceTransactions();
+    }
+
+     public ProduceTransaction getProduceTransaction(long transactionId){
+        return produceTransactionRepository.findById(transactionId).orElseThrow(NoSuchElementException::new);
     }
 
     public ProduceTransaction createProduceTransaction(ProduceTransaction produceTransaction){
