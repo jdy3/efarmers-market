@@ -72,7 +72,7 @@ public class LivestockTransactionService {
             
          }
 
-        } else throw new IllegalArgumentException("Quantity must be greater than 0 and no more than the product quantitiy");
+        } else throw new IllegalArgumentException("Purchase quantity must be greater than 0 and no more than the product quantitiy");
 
     return livestockTransaction;
     }

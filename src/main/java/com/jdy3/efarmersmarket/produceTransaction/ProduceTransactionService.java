@@ -72,7 +72,7 @@ public class ProduceTransactionService {
             
          }
 
-        } else throw new IllegalArgumentException("Weight to buy must be greater than 0 and no more than the product weight");
+        } else throw new IllegalArgumentException("Purchase weight must be greater than 0 and no more than the product weight");
 
     return produceTransaction;
     }
