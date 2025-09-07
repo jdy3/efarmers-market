@@ -3,9 +3,12 @@ package com.jdy3.efarmersmarket.produce;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import com.jdy3.efarmersmarket.Product;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 
 @Entity
@@ -15,8 +18,21 @@ public class Produce extends Product {
     /** Concrete child Produce class */
 
     /** Restrict produce input category values */
-    public enum Category {Cereal, Vegetable, Fruit, None};
+    public enum Category {
+    Cereal("Cereal"), Vegetable("Vegetable"), Fruit("Fruit"), None("None");
+    
+    private final String value;
+    Category(String value){
+        this.value = value;
+    }
 
+    @JsonValue
+    public String getValue(){
+        return value;
+    }
+    };
+
+    @Enumerated(EnumType.STRING)
     protected Category category;
     protected LocalDate expiry;
 
@@ -34,9 +50,6 @@ public class Produce extends Product {
 
     /** Direct user to input allowed produce category values */
     public void setCategory(Category inputCategory){
-        if(!inputCategory.equals(Category.Cereal) || !inputCategory.equals(Category.Vegetable) || !inputCategory.equals(Category.Fruit) || !inputCategory.equals(Category.None)){
-            throw new IllegalArgumentException("Category must be Cereal, Vegetable or Fruit");
-        }
         this.category = inputCategory; 
     }
 

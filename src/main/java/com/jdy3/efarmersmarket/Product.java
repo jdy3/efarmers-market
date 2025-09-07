@@ -2,22 +2,32 @@ package com.jdy3.efarmersmarket;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.OneToMany;
 
 /** Annotation on the abstract base class to allow mapping for the concrete child class tables */
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 
 public abstract class Product {
-    /** Abstract class for all farm product category tables*/
+    /** Abstract class for all farm product tables*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     protected UUID id;
+
+    /**Map product id column to transaction tables*/
+
+    @OneToMany(mappedBy = "product")
+    protected List<Transaction> transactions;
     
     protected LocalDate date;
     protected String name;
@@ -29,7 +39,7 @@ public abstract class Product {
     protected String location;
     protected BigDecimal price;
 
-    public Product(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String productProvenance, String collectionPoint, BigDecimal itemPrice){
+    public Product(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String productProvenance, String collectionPoint, BigDecimal productPrice){
         this.date = entryDate;
         this.name = productName;
         this.variety = productVariety;
@@ -38,7 +48,7 @@ public abstract class Product {
         this.weight = kg;
         this.provenance = productProvenance;
         this.location = collectionPoint;
-        this.price = itemPrice;
+        this.price = productPrice;
     }
 
     /** Default table values for a no argument constructor call*/
