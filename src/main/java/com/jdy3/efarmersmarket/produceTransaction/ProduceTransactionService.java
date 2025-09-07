@@ -49,6 +49,11 @@ public class ProduceTransactionService {
         /** On creation of a successful transaction, update produce table data */
 
         Produce produce = produceRepository.findById(produceTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Produce not found"));
+        
+        // Set category and expiry from Produce to ProduceTransaction
+        produceTransaction.setProduceCategory(produce.getCategory().getValue());
+        produceTransaction.setProduceExpiry(produce.getExpiry());
+        
         BigDecimal productWeight = produce.getWeight();
         BigDecimal purchaseWeight = produceTransaction.getpurchaseWeight();
 

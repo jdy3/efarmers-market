@@ -49,12 +49,13 @@ public class LivestockTransactionService {
         /** On creation of a successful transaction, update livestock table data */
 
         Livestock livestock = livestockRepository.findById(livestockTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Livestock not found"));
-        int productQuantity = livestock.getQuantity();
-        int purchaseQuantity = livestockTransaction.getpurchaseQuantity();
-
+       
         // Set age and certification from Livestock to LivestockTransaction
         livestockTransaction.setLivestockAge(livestock.getAge());
         livestockTransaction.setLivestockCertification(livestock.getCertitification());
+
+        int productQuantity = livestock.getQuantity();
+        int purchaseQuantity = livestockTransaction.getpurchaseQuantity();
 
         if (purchaseQuantity > 0 && productQuantity > purchaseQuantity ){
             
