@@ -13,12 +13,30 @@ import jakarta.persistence.Table;
 
 public class LivestockTransaction extends Transaction {
     /** Concrete child livestock transaction entity */
+    protected double livestockAge;
+    protected String livestockCertification;
     protected int purchaseQuantity;
     protected BigDecimal cost = BigDecimal.valueOf(purchaseQuantity).multiply(this.productPrice);
 
     public LivestockTransaction(UUID productId, int purchaseQuantity){
         super(productId);
         this.purchaseQuantity = purchaseQuantity;
+    }
+
+    public void setLivestockAge(double age){
+        this.livestockAge = age;
+    }
+
+    public double getLivestockAge(){
+        return livestockAge;
+    }
+
+    public void setLivestockCertification(String certification){
+        this.livestockCertification = certification;
+    }
+
+    public String getLivestockCertification (){
+        return livestockCertification;
     }
 
     public void setpurchaseQuantity(int inputpurchaseQuantity){

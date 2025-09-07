@@ -52,6 +52,10 @@ public class LivestockTransactionService {
         int productQuantity = livestock.getQuantity();
         int purchaseQuantity = livestockTransaction.getpurchaseQuantity();
 
+        // Set age and certification from Livestock to LivestockTransaction
+        livestockTransaction.setLivestockAge(livestock.getAge());
+        livestockTransaction.setLivestockCertification(livestock.getCertitification());
+
         if (purchaseQuantity > 0 && productQuantity > purchaseQuantity ){
             
             if (productQuantity == purchaseQuantity){
