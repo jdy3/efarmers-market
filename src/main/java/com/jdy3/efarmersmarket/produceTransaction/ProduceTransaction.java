@@ -14,20 +14,20 @@ import jakarta.persistence.Table;
 public class ProduceTransaction extends Transaction {
     /** Concrete child produce transaction entity */
 
-    protected BigDecimal weightToBuy;
-    protected BigDecimal cost = weightToBuy.multiply(this.productPrice);
+    protected BigDecimal purchaseWeight;
+    protected BigDecimal cost = purchaseWeight.multiply(this.productPrice);
 
-    public ProduceTransaction(UUID productId, BigDecimal weightToBuy){
+    public ProduceTransaction(UUID productId, BigDecimal purchaseWeight){
         super(productId);
-        this.weightToBuy = weightToBuy;
+        this.purchaseWeight = purchaseWeight;
     }
 
-    public void setWeightToBuy(BigDecimal inputWeightToBuy){
-        this.weightToBuy = inputWeightToBuy;
+    public void setpurchaseWeight(BigDecimal inputpurchaseWeight){
+        this.purchaseWeight = inputpurchaseWeight;
     }
 
-    public BigDecimal getWeightToBuy(){
-        return weightToBuy;
+    public BigDecimal getpurchaseWeight(){
+        return purchaseWeight;
     }
 
     public void setCost(BigDecimal inputCost){

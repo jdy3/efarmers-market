@@ -50,20 +50,20 @@ public class LivestockTransactionService {
 
         Livestock livestock = livestockRepository.findById(livestockTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Livestock not found"));
         int productQuantity = livestock.getQuantity();
-        int quantityToBuy = livestockTransaction.getQuantityToBuy();
+        int purchaseQuantity = livestockTransaction.getpurchaseQuantity();
 
-        if (quantityToBuy > 0 && productQuantity > quantityToBuy ){
+        if (purchaseQuantity > 0 && productQuantity > purchaseQuantity ){
             
-            if (productQuantity == quantityToBuy){
+            if (productQuantity == purchaseQuantity){
 
             livestockTransactionRepository.save(livestockTransaction);
             livestockRepository.delete((Livestock) livestock);
         } 
         
-        else if(productQuantity > quantityToBuy){
+        else if(productQuantity > purchaseQuantity){
 
             livestockTransactionRepository.save(livestockTransaction);
-            ((Livestock) livestock).setQuantity(productQuantity - quantityToBuy);
+            ((Livestock) livestock).setQuantity(productQuantity - purchaseQuantity);
             
          }
 

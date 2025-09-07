@@ -50,20 +50,20 @@ public class ProduceTransactionService {
 
         Produce produce = produceRepository.findById(produceTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Produce not found"));
         BigDecimal productWeight = produce.getWeight();
-        BigDecimal weightToBuy = produceTransaction.getWeightToBuy();
+        BigDecimal purchaseWeight = produceTransaction.getpurchaseWeight();
 
-        if (weightToBuy.compareTo(BigDecimal.ZERO) > 0 && productWeight.compareTo(weightToBuy) >= 0){
+        if (purchaseWeight.compareTo(BigDecimal.ZERO) > 0 && productWeight.compareTo(purchaseWeight) >= 0){
             
-            if (productWeight.compareTo(weightToBuy) == 0){
+            if (productWeight.compareTo(purchaseWeight) == 0){
 
             produceTransactionRepository.save(produceTransaction);
             produceRepository.delete((Produce) produce);
         } 
         
-        else if(productWeight.compareTo(weightToBuy) > 0){
+        else if(productWeight.compareTo(purchaseWeight) > 0){
 
             produceTransactionRepository.save(produceTransaction);
-            ((Produce) produce).setWeight(productWeight.subtract(weightToBuy));
+            ((Produce) produce).setWeight(productWeight.subtract(purchaseWeight));
             
          }
 

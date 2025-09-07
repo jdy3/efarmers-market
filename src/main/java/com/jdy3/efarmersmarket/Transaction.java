@@ -34,11 +34,12 @@ protected long transactionId;
 protected Product product;
 
 /** Retrieve product data */
-/** Annotation to ignore this field during INSERT and UPDATE operations as it is read only from the entity's perspective */
+/** Annotation to ignore this foreign key field during INSERT and UPDATE operations as it is read only from the entity's perspective */
 @Column(insertable=false, updatable=false)
 protected UUID productId = product.id;
-@Column(insertable=false, updatable=false)
-protected BigDecimal productPrice = product.price;
+
+/** transient key word used to prevent column creation */
+protected transient BigDecimal productPrice = product.price;
 
 protected String productName = product.name;
 protected String productVariety = product.variety;
