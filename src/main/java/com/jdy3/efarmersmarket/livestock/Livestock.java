@@ -18,9 +18,9 @@ public class Livestock extends Product {
     protected int quantity;
     protected String certification;
 
-    public Livestock(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String provenance, String collectionPoint, BigDecimal itemPrice, double animalAge, int numberOfAnimals, String certDetails){
+    public Livestock(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String provenance, String collectionPoint, BigDecimal itemPrice, double months, int numberOfAnimals, String certDetails){
         super(entryDate, productName, productVariety, productPicture, productDescription, kg, provenance, collectionPoint, itemPrice);
-        this.age = animalAge;
+        this.age = months;
         this.quantity = numberOfAnimals;
         this.certification = certDetails;
     }
