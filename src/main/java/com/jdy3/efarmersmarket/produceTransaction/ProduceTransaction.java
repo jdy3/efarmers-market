@@ -58,10 +58,6 @@ public class ProduceTransaction extends Transaction {
         return purchaseWeight;
     }
 
-    public void setCost(BigDecimal inputCost){
-        this.cost = inputCost;
-    }
-
     public BigDecimal getCost(){
         return cost;
     }

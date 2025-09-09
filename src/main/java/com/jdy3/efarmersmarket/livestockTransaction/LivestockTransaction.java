@@ -57,10 +57,6 @@ public class LivestockTransaction extends Transaction {
         return purchaseQuantity;
     }
 
-    public void setCost(BigDecimal inputCost){
-        this.cost = inputCost;
-    }
-
     public BigDecimal getCost(){
         return cost;
     }
