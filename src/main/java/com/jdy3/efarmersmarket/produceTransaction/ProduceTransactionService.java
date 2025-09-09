@@ -51,11 +51,12 @@ public class ProduceTransactionService {
         Produce produce = produceRepository.findById(produceTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Produce not found"));
         
         // Set category and expiry from Produce to ProduceTransaction
+        produceTransaction.setProduceVariety(produce.getVariety());
         produceTransaction.setProduceCategory(produce.getCategory().getValue());
         produceTransaction.setProduceExpiry(produce.getExpiry());
         
         BigDecimal productWeight = produce.getWeight();
-        BigDecimal purchaseWeight = produceTransaction.getpurchaseWeight();
+        BigDecimal purchaseWeight = produceTransaction.getPurchaseWeight();
 
         if (purchaseWeight.compareTo(BigDecimal.ZERO) > 0 && productWeight.compareTo(purchaseWeight) >= 0){
             
@@ -75,6 +76,15 @@ public class ProduceTransactionService {
         } else throw new IllegalArgumentException("Purchase weight must be greater than 0 and no more than the product weight");
 
     return produceTransaction;
+    }
+
+    public ProduceTransaction updateProduceTransaction(long id, ProduceTransaction amendedProduceTransaction){
+        ProduceTransaction existingProduceTransaction = produceTransactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+
+        existingProduceTransaction.setPurchaseWeight(amendedProduceTransaction.getPurchaseWeight());
+
+        return produceTransactionRepository.save(existingProduceTransaction);
+
     }
 
     public void deleteProduceTransaction(long transactionId){

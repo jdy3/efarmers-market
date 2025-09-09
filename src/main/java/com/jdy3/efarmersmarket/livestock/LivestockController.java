@@ -57,9 +57,9 @@ public class LivestockController {
     }
     
     @PutMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<Livestock> updateLivestock(@PathVariable UUID id, @RequestBody Livestock ammendedlivestock){
+    public ResponseEntity<Livestock> updateLivestock(@PathVariable UUID id, @RequestBody Livestock amendedlivestock){
         try{
-            Livestock updatedLivestock = livestockService.updateLivestock(id, ammendedlivestock);
+            Livestock updatedLivestock = livestockService.updateLivestock(id, amendedlivestock);
             return ResponseEntity.status(HttpStatus.OK).body(updatedLivestock);
         } catch (NoSuchElementException exception){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Livestock not found", exception);

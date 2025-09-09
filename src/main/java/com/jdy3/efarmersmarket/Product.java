@@ -31,7 +31,6 @@ public abstract class Product {
     
     protected LocalDate date;
     protected String name;
-    protected String variety;
     protected String picture;
     protected String description;
     protected BigDecimal weight;
@@ -39,10 +38,9 @@ public abstract class Product {
     protected String location;
     protected BigDecimal price;
 
-    public Product(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String productProvenance, String collectionPoint, BigDecimal productPrice){
+    public Product(LocalDate entryDate, String productName, String productPicture, String productDescription, BigDecimal kg, String productProvenance, String collectionPoint, BigDecimal productPrice){
         this.date = entryDate;
         this.name = productName;
-        this.variety = productVariety;
         this.picture = productPicture;
         this.description = productDescription;
         this.weight = kg;
@@ -53,7 +51,7 @@ public abstract class Product {
 
     /** Default table values for a no argument constructor call*/
     public Product(){
-        this(null, "", "", "", "", BigDecimal.ZERO, "", "", BigDecimal.ZERO);
+        this(null, "", "", "", BigDecimal.ZERO, "", "", BigDecimal.ZERO);
     }
 
     public void setDate(LocalDate inputDate){
@@ -71,14 +69,6 @@ public abstract class Product {
     public String getName(){
         return name;
     }
-
-   public void setVariety(String inputVariety){
-        this.variety = inputVariety;
-   }
-
-   public String getVariety(){
-    return variety;
-   }
 
    public void setPicture(String inputPicture){
     this.picture = inputPicture;

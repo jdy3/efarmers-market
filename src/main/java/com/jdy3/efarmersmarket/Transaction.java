@@ -42,7 +42,6 @@ protected UUID productId = product.id;
 protected transient BigDecimal productPrice = product.price;
 
 protected String productName = product.name;
-protected String productVariety = product.variety;
 protected String productPicture = product.picture;
 protected String productDescription = product.description;
 protected String productProvenance = product.provenance;

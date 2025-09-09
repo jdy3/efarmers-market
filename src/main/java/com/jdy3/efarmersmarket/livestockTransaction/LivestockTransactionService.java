@@ -51,11 +51,12 @@ public class LivestockTransactionService {
         Livestock livestock = livestockRepository.findById(livestockTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Livestock not found"));
        
         // Set age and certification from Livestock to LivestockTransaction
+        livestockTransaction.setLivestockBreed(livestock.getBreed());
         livestockTransaction.setLivestockAge(livestock.getAge());
-        livestockTransaction.setLivestockCertification(livestock.getCertitification());
+        livestockTransaction.setLivestockCertification(livestock.getCertification());
 
         int productQuantity = livestock.getQuantity();
-        int purchaseQuantity = livestockTransaction.getpurchaseQuantity();
+        int purchaseQuantity = livestockTransaction.getPurchaseQuantity();
 
         if (purchaseQuantity > 0 && productQuantity > purchaseQuantity ){
             
@@ -76,6 +77,17 @@ public class LivestockTransactionService {
 
     return livestockTransaction;
     }
+
+    public LivestockTransaction updateLivestockTransaction(long id, LivestockTransaction amendedLivestockTransaction){
+        LivestockTransaction existingLivestockTransaction = livestockTransactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+
+        existingLivestockTransaction.setPurchaseQuantity(amendedLivestockTransaction.getPurchaseQuantity());
+
+        return livestockTransactionRepository.save(existingLivestockTransaction);
+
+    }
+
+
 
     public void deleteLivestockTransaction(long transactionId){
         LivestockTransaction livestockTransaction = livestockTransactionRepository.findById(transactionId).orElseThrow(NoSuchElementException::new);

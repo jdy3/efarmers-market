@@ -35,15 +35,17 @@ public class Produce extends Product {
     @Enumerated(EnumType.STRING)
     protected Category category;
     protected LocalDate expiry;
+    protected String variety;
 
-    public Produce(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String provenance, String collectionPoint, BigDecimal itemPrice, Category productCategory, LocalDate expiryDate){
-        super(entryDate, productName, productVariety, productPicture, productDescription, kg, provenance, collectionPoint, itemPrice);
+    public Produce(LocalDate entryDate, String productName, String productPicture, String productDescription, BigDecimal kg, String provenance, String collectionPoint, BigDecimal itemPrice, Category productCategory, LocalDate expiryDate, String productVariety){
+        super(entryDate, productName, productPicture, productDescription, kg, provenance, collectionPoint, itemPrice);
         this.category = productCategory;
         this.expiry = expiryDate;
+        this.variety = productVariety; 
     }
 
      public Produce(){
-        super(null, "", "", "", "", BigDecimal.ZERO, "", "", BigDecimal.ZERO);
+        super(null, "", "", "", BigDecimal.ZERO, "", "", BigDecimal.ZERO);
         this.category = Category.None;
         this.expiry = null;
     }
@@ -63,6 +65,14 @@ public class Produce extends Product {
     
     public LocalDate getExpiry(){
         return expiry;
+    }
+
+    public void setVariety(String inputVariety){
+        this.variety = inputVariety;
+    }
+
+    public String getVariety(){
+        return variety;
     }
 
 }

@@ -15,6 +15,7 @@ import jakarta.persistence.Table;
 public class ProduceTransaction extends Transaction {
     /** Concrete child produce transaction entity */
 
+    protected String produceVariety;
     protected String produceCategory;
     protected LocalDate produceExpiry;
     protected BigDecimal purchaseWeight;
@@ -23,6 +24,14 @@ public class ProduceTransaction extends Transaction {
     public ProduceTransaction(UUID productId, BigDecimal purchaseWeight){
         super(productId);
         this.purchaseWeight = purchaseWeight;
+    }
+
+    public void setProduceVariety(String inputVariety){
+        this.produceVariety = inputVariety;
+    }
+
+    public String getProduceVariety(){
+        return produceVariety;
     }
 
     public void setProduceCategory(String category){
@@ -41,11 +50,11 @@ public class ProduceTransaction extends Transaction {
         return produceExpiry;
     }
 
-    public void setpurchaseWeight(BigDecimal inputpurchaseWeight){
+    public void setPurchaseWeight(BigDecimal inputpurchaseWeight){
         this.purchaseWeight = inputpurchaseWeight;
     }
 
-    public BigDecimal getpurchaseWeight(){
+    public BigDecimal getPurchaseWeight(){
         return purchaseWeight;
     }
 

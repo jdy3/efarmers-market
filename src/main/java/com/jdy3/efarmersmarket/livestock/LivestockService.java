@@ -45,7 +45,7 @@ public class LivestockService {
 
         existingLivestock.setDate(updatedLivestock.getDate());
         existingLivestock.setName(updatedLivestock.getName());
-        existingLivestock.setVariety(updatedLivestock.getVariety());
+        existingLivestock.setBreed(updatedLivestock.getBreed());
         existingLivestock.setPicture(updatedLivestock.getPicture());
         existingLivestock.setDescription(updatedLivestock.getDescription());
         existingLivestock.setWeight(updatedLivestock.getWeight());
@@ -54,7 +54,7 @@ public class LivestockService {
         existingLivestock.setPrice(updatedLivestock.getPrice());
         existingLivestock.setAge(updatedLivestock.getAge());
         existingLivestock.setQuantity(updatedLivestock.getQuantity());
-        existingLivestock.setCertification(updatedLivestock.getCertitification());
+        existingLivestock.setCertification(updatedLivestock.getCertification());
 
         livestockRepository.save(existingLivestock);
 

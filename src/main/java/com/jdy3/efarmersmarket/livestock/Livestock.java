@@ -17,16 +17,18 @@ public class Livestock extends Product {
     protected double age;
     protected int quantity;
     protected String certification;
+    protected String breed;
 
-    public Livestock(LocalDate entryDate, String productName, String productVariety, String productPicture, String productDescription, BigDecimal kg, String provenance, String collectionPoint, BigDecimal itemPrice, double months, int numberOfAnimals, String certDetails){
-        super(entryDate, productName, productVariety, productPicture, productDescription, kg, provenance, collectionPoint, itemPrice);
+    public Livestock(LocalDate entryDate, String productName, String productPicture, String productDescription, BigDecimal kg, String provenance, String collectionPoint, BigDecimal itemPrice, double months, int numberOfAnimals, String certDetails, String productBreed){
+        super(entryDate, productName, productPicture, productDescription, kg, provenance, collectionPoint, itemPrice);
         this.age = months;
         this.quantity = numberOfAnimals;
         this.certification = certDetails;
+        this.breed = productBreed;
     }
 
     public Livestock(){
-        super(null, "", "", "", "", BigDecimal.ZERO, "", "", BigDecimal.ZERO);
+        super(null, "", "", "", BigDecimal.ZERO, "", "", BigDecimal.ZERO);
         this.age = 0.0d;
         this.quantity = 0;
         this.certification = "";
@@ -52,8 +54,16 @@ public class Livestock extends Product {
         this.certification = inputCert;
     }
 
-    public String getCertitification(){
+    public String getCertification(){
         return certification;
+    }
+
+    public void setBreed(String inputBreed){
+        this.breed = inputBreed;
+    }
+
+    public String getBreed(){
+        return breed;
     }
     
 }
