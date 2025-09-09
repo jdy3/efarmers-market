@@ -78,15 +78,17 @@ public class ProduceTransactionService {
     return produceTransaction;
     }
 
-    public ProduceTransaction updateProduceTransaction(long id, ProduceTransaction amendedProduceTransaction){
-        ProduceTransaction existingProduceTransaction = produceTransactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    /** Transactions should be immutable, change to refund */
+    // public ProduceTransaction updateProduceTransaction(long id, ProduceTransaction amendedProduceTransaction){
+    //     ProduceTransaction existingProduceTransaction = produceTransactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
-        existingProduceTransaction.setPurchaseWeight(amendedProduceTransaction.getPurchaseWeight());
+    //     existingProduceTransaction.setPurchaseWeight(amendedProduceTransaction.getPurchaseWeight());
 
-        return produceTransactionRepository.save(existingProduceTransaction);
+    //     return produceTransactionRepository.save(existingProduceTransaction);
 
-    }
+    // }
 
+    /** Although transactions should be immutable, delete endpoint is useful in development */
     public void deleteProduceTransaction(long transactionId){
         ProduceTransaction produceTransaction = produceTransactionRepository.findById(transactionId).orElseThrow(NoSuchElementException::new);
         produceTransactionRepository.delete(produceTransaction);

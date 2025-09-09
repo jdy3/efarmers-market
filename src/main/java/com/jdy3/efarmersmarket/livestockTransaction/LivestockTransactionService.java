@@ -78,17 +78,17 @@ public class LivestockTransactionService {
     return livestockTransaction;
     }
 
-    public LivestockTransaction updateLivestockTransaction(long id, LivestockTransaction amendedLivestockTransaction){
-        LivestockTransaction existingLivestockTransaction = livestockTransactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    /** Transactions should be immutable, change to refud */
+    // public LivestockTransaction updateLivestockTransaction(long id, LivestockTransaction amendedLivestockTransaction){
+    //     LivestockTransaction existingLivestockTransaction = livestockTransactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
-        existingLivestockTransaction.setPurchaseQuantity(amendedLivestockTransaction.getPurchaseQuantity());
+    //     existingLivestockTransaction.setPurchaseQuantity(amendedLivestockTransaction.getPurchaseQuantity());
 
-        return livestockTransactionRepository.save(existingLivestockTransaction);
+    //     return livestockTransactionRepository.save(existingLivestockTransaction);
 
-    }
+    // }
 
-
-
+    /** Although transactions should be immutable, delete endpoint is useful in development */
     public void deleteLivestockTransaction(long transactionId){
         LivestockTransaction livestockTransaction = livestockTransactionRepository.findById(transactionId).orElseThrow(NoSuchElementException::new);
         livestockTransactionRepository.delete(livestockTransaction);

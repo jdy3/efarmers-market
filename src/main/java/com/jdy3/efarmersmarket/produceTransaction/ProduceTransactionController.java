@@ -67,18 +67,20 @@ public class ProduceTransactionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createProduceTransaction);
     }
 
-    @PutMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<ProduceTransaction> updateProduceTransaction(@PathVariable long id, @RequestBody ProduceTransaction amendedProduceTransaction) {
-        try{
-            ProduceTransaction updatedProduceTransaction = produceTransactionService.updateProduceTransaction(id, amendedProduceTransaction);
-            return ResponseEntity.status(HttpStatus.OK).body(updatedProduceTransaction);
-        } catch (NoSuchElementException exception){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produce transaction not found", exception);
-        } catch (RuntimeException exception){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception);
-        }
-    }
+    /** Transactions should be immutable, replace with refun */
+    // @PutMapping(path = "/{id}", produces = "application/json")
+    // public ResponseEntity<ProduceTransaction> updateProduceTransaction(@PathVariable long id, @RequestBody ProduceTransaction amendedProduceTransaction) {
+    //     try{
+    //         ProduceTransaction updatedProduceTransaction = produceTransactionService.updateProduceTransaction(id, amendedProduceTransaction);
+    //         return ResponseEntity.status(HttpStatus.OK).body(updatedProduceTransaction);
+    //     } catch (NoSuchElementException exception){
+    //         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produce transaction not found", exception);
+    //     } catch (RuntimeException exception){
+    //         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception);
+    //     }
+    // }
     
+    /** Although transactions should be immutable, delete endpoint is useful for development */
     @DeleteMapping("/{id}")
     public void deleteProduceTransaction(@PathVariable long transactionId){
         try{

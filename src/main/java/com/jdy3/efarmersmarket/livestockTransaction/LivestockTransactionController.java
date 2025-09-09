@@ -66,18 +66,20 @@ public class LivestockTransactionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createLivestockTransaction);
     }
 
-    @PutMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<LivestockTransaction> updateLivestockTransaction(@PathVariable long id, @RequestBody LivestockTransaction amendedLivestockTransaction) {
-        try{
-            LivestockTransaction updatedLivestockTransaction = livestockTransactionService.updateLivestockTransaction(id, amendedLivestockTransaction);
-            return ResponseEntity.status(HttpStatus.OK).body(updatedLivestockTransaction);
-        } catch (NoSuchElementException exception){
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Livestock transaction not found", exception);
-        } catch (RuntimeException exception){
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception);
-        }
-    }
-    
+    /** Transactions should be immutable, replace with refund */
+    // @PutMapping(path = "/{id}", produces = "application/json")
+    // public ResponseEntity<LivestockTransaction> updateLivestockTransaction(@PathVariable long id, @RequestBody LivestockTransaction amendedLivestockTransaction) {
+    //     try{
+    //         LivestockTransaction updatedLivestockTransaction = livestockTransactionService.updateLivestockTransaction(id, amendedLivestockTransaction);
+    //         return ResponseEntity.status(HttpStatus.OK).body(updatedLivestockTransaction);
+    //     } catch (NoSuchElementException exception){
+    //         throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Livestock transaction not found", exception);
+    //     } catch (RuntimeException exception){
+    //         throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage(), exception);
+    //     }
+    // }
+
+    /** Although transactions should be immutable, delete endpoint is useful for development */    
     @DeleteMapping("/{id}")
     public void deleteLivestockTransaction(@PathVariable long transactionId){
         try{
