@@ -19,11 +19,15 @@ public class ProduceTransaction extends Transaction {
     protected String produceCategory;
     protected LocalDate produceExpiry;
     protected BigDecimal purchaseWeight;
-    protected BigDecimal cost = purchaseWeight.multiply(this.productPrice);
+    protected BigDecimal cost;
 
     public ProduceTransaction(UUID productId, BigDecimal purchaseWeight){
         super(productId);
         this.purchaseWeight = purchaseWeight;
+    }
+
+    public ProduceTransaction(){
+    super(null);
     }
 
     public void setProduceVariety(String inputVariety){
@@ -58,7 +62,11 @@ public class ProduceTransaction extends Transaction {
         return purchaseWeight;
     }
 
-    public BigDecimal getCost(){
+    public void setPurchaseCost(BigDecimal inputCost){
+        this.cost = inputCost;
+    }
+
+    public BigDecimal getPurchaseCost(){
         return cost;
     }
 

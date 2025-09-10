@@ -36,16 +36,16 @@ protected Product product;
 /** Retrieve product data */
 /** Annotation to ignore this foreign key field during INSERT and UPDATE operations as it is read only from the entity's perspective */
 @Column(insertable=false, updatable=false)
-protected UUID productId = product.id;
+protected UUID productId;
 
 /** transient key word used to prevent column creation */
-protected transient BigDecimal productPrice = product.price;
+protected transient BigDecimal productPrice;
 
-protected String productName = product.name;
-protected String productPicture = product.picture;
-protected String productDescription = product.description;
-protected String productProvenance = product.provenance;
-protected String productLocation = product.location;
+protected String productName;
+protected String productPicture;
+protected String productDescription;
+protected String productProvenance;
+protected String productLocation;
 
 @CreationTimestamp
 protected Instant timeStamp;
@@ -59,11 +59,55 @@ public long getTransactionId(){
 }
 
 public UUID getProductId(){
-    return product.id;
+    return productId;
+}
+
+public void setProductPrice(BigDecimal inputPrice){
+    this.productPrice = inputPrice;
 }
 
 public BigDecimal getProductPrice(){
     return productPrice;
+}
+
+public void setProductName(String inputName){
+    this.productName = inputName;
+}
+
+public String getProductName(){
+    return productName;
+}
+
+public void setproductPicture(String inputPicture){
+    this.productPicture = inputPicture;
+}
+
+public String getProductPicture(){
+    return productPicture;
+}
+
+public void setProductDescription(String inputDescription){
+    this.productDescription = inputDescription;
+}
+
+public String getProductDescription(){
+    return productDescription;
+}
+
+public void setProductProvenance(String inputProvenance){
+    this.productProvenance = inputProvenance;
+}
+
+public String getProductProvenance(){
+    return productProvenance;
+}
+
+public void setProductLocation(String inputLocation){
+    this.productLocation = inputLocation;
+}
+
+public String getProductLocation(){
+    return productLocation;
 }
 
 public Instant getTimeStamp(){

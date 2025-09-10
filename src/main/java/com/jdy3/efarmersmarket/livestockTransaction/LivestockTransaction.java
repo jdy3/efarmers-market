@@ -18,11 +18,15 @@ public class LivestockTransaction extends Transaction {
     protected double livestockAge;
     protected String livestockCertification;
     protected int purchaseQuantity;
-    protected BigDecimal cost = BigDecimal.valueOf(purchaseQuantity).multiply(this.productPrice);
+    protected BigDecimal cost;
 
     public LivestockTransaction(UUID productId, int purchaseQuantity){
         super(productId);
         this.purchaseQuantity = purchaseQuantity;
+    }
+
+    public LivestockTransaction(){
+    super(null);
     }
 
     public void setLivestockBreed(String inputBreed){
@@ -57,7 +61,11 @@ public class LivestockTransaction extends Transaction {
         return purchaseQuantity;
     }
 
-    public BigDecimal getCost(){
+    public void setPurchaseCost(BigDecimal inputCost){
+        this.cost = inputCost;
+    }
+
+    public BigDecimal getPurchaseCost(){
         return cost;
     }
 

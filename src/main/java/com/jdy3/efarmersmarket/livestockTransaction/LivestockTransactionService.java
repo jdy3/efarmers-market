@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.jdy3.efarmersmarket.livestock.Livestock;
 import com.jdy3.efarmersmarket.livestock.LivestockRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
@@ -48,15 +49,37 @@ public class LivestockTransactionService {
 
         /** On creation of a successful transaction, update livestock table data */
 
+        /** Retrieve product fields */
         Livestock livestock = livestockRepository.findById(livestockTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Livestock not found"));
+
+        BigDecimal productPrice = livestock.getPrice();
+        livestockTransaction.setProductPrice(productPrice);
+
+        String productName = livestock.getName();
+        livestockTransaction.setProductName(productName);
+
+        String productPicture = livestock.getPicture();
+        livestockTransaction.setproductPicture(productPicture);
+
+        String productDescription = livestock.getDescription();
+        livestockTransaction.setProductDescription(productDescription);
+
+        String productProvenance = livestock.getProvenance();
+        livestockTransaction.setProductProvenance(productProvenance);
+
+        String productLocation = livestock.getLocation();
+        livestockTransaction.setProductLocation(productLocation);   
+
        
-        // Set age and certification from Livestock to LivestockTransaction
+        /** Retrieve livestock fields */
         livestockTransaction.setLivestockBreed(livestock.getBreed());
         livestockTransaction.setLivestockAge(livestock.getAge());
         livestockTransaction.setLivestockCertification(livestock.getCertification());
 
         int productQuantity = livestock.getQuantity();
         int purchaseQuantity = livestockTransaction.getPurchaseQuantity();
+
+        livestockTransaction.setPurchaseCost(BigDecimal.valueOf(purchaseQuantity).multiply(productPrice));
 
         if (purchaseQuantity > 0 && productQuantity > purchaseQuantity ){
             
