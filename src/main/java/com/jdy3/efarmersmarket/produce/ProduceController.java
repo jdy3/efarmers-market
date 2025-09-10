@@ -43,6 +43,8 @@ public class ProduceController {
             return produceService.getProduceByName(name);
         } else if(provenance !=null && !provenance.isEmpty()){
             return produceService.getProduceByProvenance(provenance);
+        } else if (expiry !=null){
+            return produceService.getProduceByExpiry(expiry);
         } else return produceService.getAllProduce();
     }
 
