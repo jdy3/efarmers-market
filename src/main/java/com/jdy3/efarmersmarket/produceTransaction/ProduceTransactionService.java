@@ -91,6 +91,7 @@ public class ProduceTransactionService {
 
             produceTransactionRepository.save(produceTransaction);
             ((Produce) produce).setWeight(productWeight.subtract(purchaseWeight));
+            produceRepository.save(produce);
             
          }
 

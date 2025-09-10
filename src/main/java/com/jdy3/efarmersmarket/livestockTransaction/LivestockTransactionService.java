@@ -81,7 +81,7 @@ public class LivestockTransactionService {
 
         livestockTransaction.setPurchaseCost(BigDecimal.valueOf(purchaseQuantity).multiply(productPrice));
 
-        if (purchaseQuantity > 0 && productQuantity > purchaseQuantity ){
+        if (purchaseQuantity > 0 && productQuantity >= purchaseQuantity ){
             
             if (productQuantity == purchaseQuantity){
 
@@ -93,6 +93,7 @@ public class LivestockTransactionService {
 
             livestockTransactionRepository.save(livestockTransaction);
             ((Livestock) livestock).setQuantity(productQuantity - purchaseQuantity);
+            livestockRepository.save(livestock);
             
          }
 
