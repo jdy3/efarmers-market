@@ -54,12 +54,12 @@ public class ProduceTransactionController {
 
     @GetMapping(path = "/high", produces = "application/json")
     public List<ProduceTransaction> getHighValProduceTransactions(){
-        return produceTransactionService.getHighValProduceTransactions();
+        return produceTransactionService.getHighValueProduceTransactions();
     }
 
     @GetMapping(path = "/low", produces = "application/json")
-    public List<ProduceTransaction> getHighValueProduceTransactions(){
-        return produceTransactionService.getLowValuProduceTransactions();
+    public List<ProduceTransaction> getLowValueProduceTransactions(){
+        return produceTransactionService.getLowValueProduceTransactions();
     }
 
     @PostMapping(produces = "application/json")

@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -18,7 +17,6 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Transient;
 
 /** Annotation on the abstract base class to allow mapping for the concrete child class tables */
 @Entity
@@ -38,11 +36,7 @@ protected long transactionId;
 @JoinColumn(name = "productId", nullable = false)
 protected Product product;
 
-/** Annotation to prevent column creation in transaction tables */
-@JsonIgnore
-@Transient
 protected BigDecimal productPrice;
-
 protected String productName;
 protected String productPicture;
 protected String productDescription;
