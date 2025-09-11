@@ -1,5 +1,6 @@
 package com.jdy3.efarmersmarket.livestockTransaction;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jdy3.efarmersmarket.Transaction;
 
 import java.math.BigDecimal;
@@ -14,6 +15,9 @@ import jakarta.persistence.Table;
 public class LivestockTransaction extends Transaction {
     /** Concrete child livestock transaction entity */
 
+    /** Temporary field for deserialisation only (not persisted) */
+    protected transient UUID tempProductId;
+
     protected String livestockBreed;
     protected double livestockAge;
     protected String livestockCertification;
@@ -21,12 +25,20 @@ public class LivestockTransaction extends Transaction {
     protected BigDecimal cost;
 
     public LivestockTransaction(UUID productId, int purchaseQuantity){
-        super(productId);
+        this.tempProductId = productId;
         this.purchaseQuantity = purchaseQuantity;
     }
 
     public LivestockTransaction(){
-    super(null);
+    }
+
+    @JsonProperty("productId")
+    public void setTempProductId(UUID inputProductId){
+        this.tempProductId = inputProductId;
+    }
+
+    public UUID getTempProductId(){
+        return tempProductId;
     }
 
     public void setLivestockBreed(String inputBreed){

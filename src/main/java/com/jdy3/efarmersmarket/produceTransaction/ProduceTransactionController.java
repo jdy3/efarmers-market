@@ -37,7 +37,8 @@ public class ProduceTransactionController {
     public List<ProduceTransaction> getAllProduceTransactions(@RequestParam(required = false) UUID productId){
         if(productId != null){
             return produceTransactionService.getProduceTransactionByProductId(productId);
-        } else return produceTransactionService.getAllProduceTransactions();
+        }
+       return produceTransactionService.getAllProduceTransactions();
     }
 
     @GetMapping(path = "/{id}", produces = "application/json")

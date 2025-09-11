@@ -6,8 +6,11 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,6 +18,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
 
 /** Annotation on the abstract base class to allow mapping for the concrete child class tables */
 @Entity
@@ -29,17 +33,15 @@ public abstract class Transaction {
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 protected long transactionId;
 
-@ManyToOne
-@JoinColumn(name = "productId")
+/** Ensure product relationship is not lazily fetched after creating transactions */
+@ManyToOne(fetch = FetchType.EAGER)
+@JoinColumn(name = "productId", nullable = false)
 protected Product product;
 
-/** Retrieve product data */
-/** Annotation to ignore this foreign key field during INSERT and UPDATE operations as it is read only from the entity's perspective */
-@Column(insertable=false, updatable=false)
-protected UUID productId;
-
-/** transient key word used to prevent column creation */
-protected transient BigDecimal productPrice;
+/** Annotation to prevent column creation in transaction tables */
+@JsonIgnore
+@Transient
+protected BigDecimal productPrice;
 
 protected String productName;
 protected String productPicture;
@@ -50,16 +52,17 @@ protected String productLocation;
 @CreationTimestamp
 protected Instant timeStamp;
 
-public Transaction(UUID productId){
-    this.productId = productId;
-}
-
 public long getTransactionId(){
     return transactionId;
 }
 
-public UUID getProductId(){
-    return productId;
+public void setProduct(Product product){
+    this.product = product;
+}
+
+@JsonProperty("productId")
+public UUID getProductId() {
+    return product != null ? product.getId() : null;
 }
 
 public void setProductPrice(BigDecimal inputPrice){

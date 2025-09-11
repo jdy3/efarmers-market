@@ -29,7 +29,9 @@ public class ProduceTransactionService {
     }
 
     public List<ProduceTransaction> getProduceTransactionByProductId(UUID productId){
-        return produceTransactionRepository.findByProductId(productId);
+        /** Fetch produce entity by its ID */
+        Produce produce = produceRepository.findById(productId).orElseThrow(() -> new NoSuchElementException("Produce not found"));
+        return produceTransactionRepository.findByProduct(produce);
     }
 
     public List<ProduceTransaction> getHighValProduceTransactions(){
@@ -45,12 +47,13 @@ public class ProduceTransactionService {
     }
 
     public ProduceTransaction createProduceTransaction(ProduceTransaction produceTransaction){
-
-        /** On creation of a successful transaction, update produce table data */
-
-        /** Retrieve product fields */
-        Produce produce = produceRepository.findById(produceTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Produce not found"));
         
+        /** Retrieve product fields */
+        UUID productId = produceTransaction.getTempProductId();
+
+        Produce produce = produceRepository.findById(productId).orElseThrow(() -> new NoSuchElementException("Produce not found"));
+        produceTransaction.setProduct(produce);
+
         BigDecimal productPrice = produce.getPrice();
         produceTransaction.setProductPrice(productPrice);
 
@@ -79,6 +82,7 @@ public class ProduceTransactionService {
 
         produceTransaction.setPurchaseCost(purchaseWeight.multiply(productPrice));
 
+        /** On creation of a successful transaction, update produce table data */
         if (purchaseWeight.compareTo(BigDecimal.ZERO) > 0 && productWeight.compareTo(purchaseWeight) >= 0){
             
             if (productWeight.compareTo(purchaseWeight) == 0){

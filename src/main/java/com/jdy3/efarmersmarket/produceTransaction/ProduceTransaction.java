@@ -1,5 +1,6 @@
 package com.jdy3.efarmersmarket.produceTransaction;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jdy3.efarmersmarket.Transaction;
 
 import java.math.BigDecimal;
@@ -15,6 +16,9 @@ import jakarta.persistence.Table;
 public class ProduceTransaction extends Transaction {
     /** Concrete child produce transaction entity */
 
+    /** Temporary field for deserialisation only (not persisted) */
+    protected transient UUID tempProductId;
+
     protected String produceVariety;
     protected String produceCategory;
     protected LocalDate produceExpiry;
@@ -22,12 +26,20 @@ public class ProduceTransaction extends Transaction {
     protected BigDecimal cost;
 
     public ProduceTransaction(UUID productId, BigDecimal purchaseWeight){
-        super(productId);
+        this.tempProductId = productId;
         this.purchaseWeight = purchaseWeight;
     }
 
     public ProduceTransaction(){
-    super(null);
+    }
+
+    @JsonProperty("productId")
+    public void setTempProductId(UUID inputProductId){
+        this.tempProductId = inputProductId;
+    }
+
+    public UUID getTempProductId(){
+        return tempProductId;
     }
 
     public void setProduceVariety(String inputVariety){

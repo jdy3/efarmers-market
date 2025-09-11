@@ -30,7 +30,9 @@ public class LivestockTransactionService {
     }
 
     public List<LivestockTransaction> getLivestockTransactionByProductId(UUID productId){
-        return livestockTransactionRepository.findByProductId(productId);
+        /** Fetch produce entity by its ID */
+        Livestock livestock = livestockRepository.findById(productId).orElseThrow(() -> new NoSuchElementException("Livestock not found"));
+        return livestockTransactionRepository.findByProduct(livestock);
     }
 
     public List<LivestockTransaction> getHighValueLivestockTransactions(){
@@ -47,10 +49,11 @@ public class LivestockTransactionService {
 
     public LivestockTransaction createLivestockTransaction(LivestockTransaction livestockTransaction){
 
-        /** On creation of a successful transaction, update livestock table data */
-
         /** Retrieve product fields */
-        Livestock livestock = livestockRepository.findById(livestockTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Livestock not found"));
+        UUID productId = livestockTransaction.getTempProductId();
+
+        Livestock livestock = livestockRepository.findById(productId).orElseThrow(() -> new NoSuchElementException("Livestock not found"));
+        livestockTransaction.setProduct(livestock);
 
         BigDecimal productPrice = livestock.getPrice();
         livestockTransaction.setProductPrice(productPrice);
@@ -69,7 +72,6 @@ public class LivestockTransactionService {
 
         String productLocation = livestock.getLocation();
         livestockTransaction.setProductLocation(productLocation);   
-
        
         /** Retrieve livestock fields */
         livestockTransaction.setLivestockBreed(livestock.getBreed());
@@ -81,6 +83,7 @@ public class LivestockTransactionService {
 
         livestockTransaction.setPurchaseCost(BigDecimal.valueOf(purchaseQuantity).multiply(productPrice));
 
+        /** On creation of a successful transaction, update livestock table data */
         if (purchaseQuantity > 0 && productQuantity >= purchaseQuantity ){
             
             if (productQuantity == purchaseQuantity){
