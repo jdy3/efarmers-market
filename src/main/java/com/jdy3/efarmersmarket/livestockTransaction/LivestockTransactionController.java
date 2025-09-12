@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import org.springframework.web.bind.annotation.PostMapping;
+//import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @RestController
@@ -34,7 +39,7 @@ public class LivestockTransactionController {
         } else return livestockTransactionService.getAllLivestockTransactions();
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/{transactionId}", produces = "application/json")
     public LivestockTransaction getLivestockTransaction(@PathVariable long transactionId){
         try{
             return livestockTransactionService.getLivestockTransaction(transactionId);
@@ -54,8 +59,15 @@ public class LivestockTransactionController {
     public List<LivestockTransaction> getLowValueLivestockTransactions(){
         return livestockTransactionService.getLowValueLivestockTransactions();
     }
-    
-    @DeleteMapping("/{id}")
+
+    @PostMapping(produces = "application/json")
+    public ResponseEntity<LivestockTransaction> createdLivestockTransaction(@RequestBody LivestockTransaction livestockTransaction) {
+        LivestockTransaction createLivestockTransaction = livestockTransactionService.createLivestockTransaction(livestockTransaction);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createLivestockTransaction);
+    }
+
+    /** Although transactions should be immutable, delete endpoint is useful for development */    
+    @DeleteMapping("/{transactionId}")
     public void deleteLivestockTransaction(@PathVariable long transactionId){
         try{
             livestockTransactionService.deleteLivestockTransaction(transactionId);

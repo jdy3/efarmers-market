@@ -43,6 +43,8 @@ public class ProduceController {
             return produceService.getProduceByName(name);
         } else if(provenance !=null && !provenance.isEmpty()){
             return produceService.getProduceByProvenance(provenance);
+        } else if (expiry !=null){
+            return produceService.getProduceByExpiry(expiry);
         } else return produceService.getAllProduce();
     }
 
@@ -64,9 +66,9 @@ public class ProduceController {
     }
     
     @PutMapping(path = "/{id}", produces = "application/json")
-    public ResponseEntity<Produce> updateProduce(@PathVariable UUID id, @RequestBody Produce ammendedProduce){
+    public ResponseEntity<Produce> updateProduce(@PathVariable UUID id, @RequestBody Produce amendedProduce){
         try{
-            Produce updatedProduce = produceService.updateProduce(id, ammendedProduce);
+            Produce updatedProduce = produceService.updateProduce(id, amendedProduce);
             return ResponseEntity.status(HttpStatus.OK).body(updatedProduce);
         } catch (NoSuchElementException exception){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produce not found", exception);

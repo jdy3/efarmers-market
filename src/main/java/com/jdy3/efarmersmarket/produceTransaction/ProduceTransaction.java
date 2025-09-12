@@ -1,5 +1,6 @@
 package com.jdy3.efarmersmarket.produceTransaction;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jdy3.efarmersmarket.Transaction;
 
 import java.math.BigDecimal;
@@ -15,14 +16,38 @@ import jakarta.persistence.Table;
 public class ProduceTransaction extends Transaction {
     /** Concrete child produce transaction entity */
 
+    /** Temporary field for deserialisation only (not persisted) */
+    protected transient UUID tempProductId;
+
+    protected String produceVariety;
     protected String produceCategory;
     protected LocalDate produceExpiry;
     protected BigDecimal purchaseWeight;
-    protected BigDecimal cost = purchaseWeight.multiply(this.productPrice);
+    protected BigDecimal cost;
 
     public ProduceTransaction(UUID productId, BigDecimal purchaseWeight){
-        super(productId);
+        this.tempProductId = productId;
         this.purchaseWeight = purchaseWeight;
+    }
+
+    public ProduceTransaction(){
+    }
+
+    @JsonProperty("productId")
+    public void setTempProductId(UUID inputProductId){
+        this.tempProductId = inputProductId;
+    }
+
+    public UUID getTempProductId(){
+        return tempProductId;
+    }
+
+    public void setProduceVariety(String inputVariety){
+        this.produceVariety = inputVariety;
+    }
+
+    public String getProduceVariety(){
+        return produceVariety;
     }
 
     public void setProduceCategory(String category){
@@ -41,19 +66,19 @@ public class ProduceTransaction extends Transaction {
         return produceExpiry;
     }
 
-    public void setpurchaseWeight(BigDecimal inputpurchaseWeight){
+    public void setPurchaseWeight(BigDecimal inputpurchaseWeight){
         this.purchaseWeight = inputpurchaseWeight;
     }
 
-    public BigDecimal getpurchaseWeight(){
+    public BigDecimal getPurchaseWeight(){
         return purchaseWeight;
     }
 
-    public void setCost(BigDecimal inputCost){
+    public void setPurchaseCost(BigDecimal inputCost){
         this.cost = inputCost;
     }
 
-    public BigDecimal getCost(){
+    public BigDecimal getPurchaseCost(){
         return cost;
     }
 

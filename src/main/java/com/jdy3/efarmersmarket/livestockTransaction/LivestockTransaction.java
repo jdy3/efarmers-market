@@ -1,5 +1,6 @@
 package com.jdy3.efarmersmarket.livestockTransaction;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.jdy3.efarmersmarket.Transaction;
 
 import java.math.BigDecimal;
@@ -13,14 +14,39 @@ import jakarta.persistence.Table;
 
 public class LivestockTransaction extends Transaction {
     /** Concrete child livestock transaction entity */
+
+    /** Temporary field for deserialisation only (not persisted) */
+    protected transient UUID tempProductId;
+
+    protected String livestockBreed;
     protected double livestockAge;
     protected String livestockCertification;
     protected int purchaseQuantity;
-    protected BigDecimal cost = BigDecimal.valueOf(purchaseQuantity).multiply(this.productPrice);
+    protected BigDecimal cost;
 
     public LivestockTransaction(UUID productId, int purchaseQuantity){
-        super(productId);
+        this.tempProductId = productId;
         this.purchaseQuantity = purchaseQuantity;
+    }
+
+    public LivestockTransaction(){
+    }
+
+    @JsonProperty("productId")
+    public void setTempProductId(UUID inputProductId){
+        this.tempProductId = inputProductId;
+    }
+
+    public UUID getTempProductId(){
+        return tempProductId;
+    }
+
+    public void setLivestockBreed(String inputBreed){
+        this.livestockBreed = inputBreed;
+    }
+
+    public String getLivestockBreed(){
+        return livestockBreed;
     }
 
     public void setLivestockAge(double age){
@@ -39,19 +65,19 @@ public class LivestockTransaction extends Transaction {
         return livestockCertification;
     }
 
-    public void setpurchaseQuantity(int inputpurchaseQuantity){
+    public void setPurchaseQuantity(int inputpurchaseQuantity){
         this.purchaseQuantity = inputpurchaseQuantity;
     }
 
-    public int getpurchaseQuantity(){
+    public int getPurchaseQuantity(){
         return purchaseQuantity;
     }
 
-    public void setCost(BigDecimal inputCost){
+    public void setPurchaseCost(BigDecimal inputCost){
         this.cost = inputCost;
     }
 
-    public BigDecimal getCost(){
+    public BigDecimal getPurchaseCost(){
         return cost;
     }
 

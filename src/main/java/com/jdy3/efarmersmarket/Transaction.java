@@ -6,8 +6,10 @@ import java.util.UUID;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.Column;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -29,42 +31,80 @@ public abstract class Transaction {
 @GeneratedValue(strategy = GenerationType.SEQUENCE)
 protected long transactionId;
 
-@ManyToOne
-@JoinColumn(name = "productId")
+/** Ensure product relationship is not lazily fetched after creating transactions */
+@ManyToOne(fetch = FetchType.EAGER)
+@JoinColumn(name = "productId", nullable = false)
 protected Product product;
 
-/** Retrieve product data */
-/** Annotation to ignore this foreign key field during INSERT and UPDATE operations as it is read only from the entity's perspective */
-@Column(insertable=false, updatable=false)
-protected UUID productId = product.id;
-
-/** transient key word used to prevent column creation */
-protected transient BigDecimal productPrice = product.price;
-
-protected String productName = product.name;
-protected String productVariety = product.variety;
-protected String productPicture = product.picture;
-protected String productDescription = product.description;
-protected String productProvenance = product.provenance;
-protected String productLocation = product.location;
+protected BigDecimal productPrice;
+protected String productName;
+protected String productPicture;
+protected String productDescription;
+protected String productProvenance;
+protected String productLocation;
 
 @CreationTimestamp
 protected Instant timeStamp;
-
-public Transaction(UUID productId){
-    this.productId = productId;
-}
 
 public long getTransactionId(){
     return transactionId;
 }
 
-public UUID getProductId(){
-    return product.id;
+public void setProduct(Product product){
+    this.product = product;
+}
+
+@JsonProperty("productId")
+public UUID getProductId() {
+    return product != null ? product.getId() : null;
+}
+
+public void setProductPrice(BigDecimal inputPrice){
+    this.productPrice = inputPrice;
 }
 
 public BigDecimal getProductPrice(){
     return productPrice;
+}
+
+public void setProductName(String inputName){
+    this.productName = inputName;
+}
+
+public String getProductName(){
+    return productName;
+}
+
+public void setproductPicture(String inputPicture){
+    this.productPicture = inputPicture;
+}
+
+public String getProductPicture(){
+    return productPicture;
+}
+
+public void setProductDescription(String inputDescription){
+    this.productDescription = inputDescription;
+}
+
+public String getProductDescription(){
+    return productDescription;
+}
+
+public void setProductProvenance(String inputProvenance){
+    this.productProvenance = inputProvenance;
+}
+
+public String getProductProvenance(){
+    return productProvenance;
+}
+
+public void setProductLocation(String inputLocation){
+    this.productLocation = inputLocation;
+}
+
+public String getProductLocation(){
+    return productLocation;
 }
 
 public Instant getTimeStamp(){

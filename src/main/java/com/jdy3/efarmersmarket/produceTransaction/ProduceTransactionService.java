@@ -19,66 +19,92 @@ public class ProduceTransactionService {
     public final ProduceTransactionRepository produceTransactionRepository;
     public final ProduceRepository produceRepository;
 
-    public ProduceTransactionService(ProduceTransactionRepository produceTransactionRepository, ProduceRepository produceRepository){
-            this.produceTransactionRepository = produceTransactionRepository;
-            this.produceRepository = produceRepository;
+    public ProduceTransactionService(ProduceTransactionRepository produceTransactionRepository,
+            ProduceRepository produceRepository) {
+        this.produceTransactionRepository = produceTransactionRepository;
+        this.produceRepository = produceRepository;
     }
 
-    public List<ProduceTransaction> getAllProduceTransactions(){
+    public List<ProduceTransaction> getAllProduceTransactions() {
         return produceTransactionRepository.findAll();
     }
 
-    public List<ProduceTransaction> getProduceTransactionByProductId(UUID productId){
-        return produceTransactionRepository.findByProductId(productId);
+    public List<ProduceTransaction> getProduceTransactionByProductId(UUID productId) {
+        /** Fetch produce entity by its ID */
+        Produce produce = produceRepository.findById(productId)
+                .orElseThrow(() -> new NoSuchElementException("Produce not found"));
+        return produceTransactionRepository.findByProduct(produce);
     }
 
-    public List<ProduceTransaction> getHighValProduceTransactions(){
+    public List<ProduceTransaction> getHighValueProduceTransactions() {
         return produceTransactionRepository.findHighValueProduceTransactions();
     }
 
-    public List<ProduceTransaction> getLowValuProduceTransactions(){
+    public List<ProduceTransaction> getLowValueProduceTransactions() {
         return produceTransactionRepository.findLowValueProduceTransactions();
     }
 
-     public ProduceTransaction getProduceTransaction(long transactionId){
+    public ProduceTransaction getProduceTransaction(long transactionId) {
         return produceTransactionRepository.findById(transactionId).orElseThrow(NoSuchElementException::new);
     }
 
-    public ProduceTransaction createProduceTransaction(ProduceTransaction produceTransaction){
+    public ProduceTransaction createProduceTransaction(ProduceTransaction produceTransaction) {
 
-        /** On creation of a successful transaction, update produce table data */
+        /** Retrieve product fields */
+        UUID productId = produceTransaction.getTempProductId();
 
-        Produce produce = produceRepository.findById(produceTransaction.getProductId()).orElseThrow(() -> new NoSuchElementException("Produce not found"));
-        
-        // Set category and expiry from Produce to ProduceTransaction
+        Produce produce = produceRepository.findById(productId)
+                .orElseThrow(() -> new NoSuchElementException("Produce not found"));
+        produceTransaction.setProduct(produce);
+
+        BigDecimal productPrice = produce.getPrice();
+        produceTransaction.setProductPrice(productPrice);
+
+        String productName = produce.getName();
+        produceTransaction.setProductName(productName);
+
+        String productPicture = produce.getPicture();
+        produceTransaction.setproductPicture(productPicture);
+
+        String productDescription = produce.getDescription();
+        produceTransaction.setProductDescription(productDescription);
+
+        String productProvenance = produce.getProvenance();
+        produceTransaction.setProductProvenance(productProvenance);
+
+        String productLocation = produce.getLocation();
+        produceTransaction.setProductLocation(productLocation);
+
+        /** Retrieve produce fields */
+        produceTransaction.setProduceVariety(produce.getVariety());
         produceTransaction.setProduceCategory(produce.getCategory().getValue());
         produceTransaction.setProduceExpiry(produce.getExpiry());
-        
+
         BigDecimal productWeight = produce.getWeight();
-        BigDecimal purchaseWeight = produceTransaction.getpurchaseWeight();
+        BigDecimal purchaseWeight = produceTransaction.getPurchaseWeight();
 
-        if (purchaseWeight.compareTo(BigDecimal.ZERO) > 0 && productWeight.compareTo(purchaseWeight) >= 0){
-            
-            if (productWeight.compareTo(purchaseWeight) == 0){
+        produceTransaction.setPurchaseCost(purchaseWeight.multiply(productPrice));
 
-            produceTransactionRepository.save(produceTransaction);
-            produceRepository.delete((Produce) produce);
-        } 
-        
-        else if(productWeight.compareTo(purchaseWeight) > 0){
+        /** On creation of a successful transaction, update produce table data */
+        if (purchaseWeight.compareTo(BigDecimal.ZERO) > 0 && productWeight.compareTo(purchaseWeight) >= 0) {
 
             produceTransactionRepository.save(produceTransaction);
             ((Produce) produce).setWeight(productWeight.subtract(purchaseWeight));
-            
-         }
+            produceRepository.save(produce);
 
-        } else throw new IllegalArgumentException("Purchase weight must be greater than 0 and no more than the product weight");
-
-    return produceTransaction;
+        } else
+            throw new IllegalArgumentException(
+                    "Purchase weight must be greater than 0 and no more than the product weight");
+        return produceTransaction;
     }
 
-    public void deleteProduceTransaction(long transactionId){
-        ProduceTransaction produceTransaction = produceTransactionRepository.findById(transactionId).orElseThrow(NoSuchElementException::new);
+    /**
+     * Although transactions should be immutable, delete endpoint is useful in
+     * development
+     */
+    public void deleteProduceTransaction(long transactionId) {
+        ProduceTransaction produceTransaction = produceTransactionRepository.findById(transactionId)
+                .orElseThrow(NoSuchElementException::new);
         produceTransactionRepository.delete(produceTransaction);
     }
 
