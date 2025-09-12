@@ -67,7 +67,7 @@ public class LivestockTransactionController {
     }
 
     /** Although transactions should be immutable, delete endpoint is useful for development */    
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{transactionId}")
     public void deleteLivestockTransaction(@PathVariable long transactionId){
         try{
             livestockTransactionService.deleteLivestockTransaction(transactionId);

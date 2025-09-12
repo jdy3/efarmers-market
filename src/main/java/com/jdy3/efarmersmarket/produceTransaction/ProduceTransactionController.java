@@ -69,7 +69,7 @@ public class ProduceTransactionController {
     }
     
     /** Although transactions should be immutable, delete endpoint is useful for development */
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{transactionId}")
     public void deleteProduceTransaction(@PathVariable long transactionId){
         try{
             produceTransactionService.deleteProduceTransaction(transactionId);
