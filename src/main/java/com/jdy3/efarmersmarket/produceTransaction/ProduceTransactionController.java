@@ -41,7 +41,7 @@ public class ProduceTransactionController {
        return produceTransactionService.getAllProduceTransactions();
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/{transactionId}", produces = "application/json")
     public ProduceTransaction getProduceTransaction(@PathVariable long transactionId){
         try{
             return produceTransactionService.getProduceTransaction(transactionId);

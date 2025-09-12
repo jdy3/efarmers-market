@@ -39,7 +39,7 @@ public class LivestockTransactionController {
         } else return livestockTransactionService.getAllLivestockTransactions();
     }
 
-    @GetMapping(path = "/{id}", produces = "application/json")
+    @GetMapping(path = "/{transactionId}", produces = "application/json")
     public LivestockTransaction getLivestockTransaction(@PathVariable long transactionId){
         try{
             return livestockTransactionService.getLivestockTransaction(transactionId);
