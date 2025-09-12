@@ -97,19 +97,7 @@ public class LivestockTransactionService {
                     "Purchase quantity must be greater than 0 and no more than the product quantitiy");
         return livestockTransaction;
     }
-
-    /** Transactions should be immutable, change to refud */
-    // public LivestockTransaction updateLivestockTransaction(long id,
-    // LivestockTransaction amendedLivestockTransaction){
-    // LivestockTransaction existingLivestockTransaction =
-    // livestockTransactionRepository.findById(id).orElseThrow(NoSuchElementException::new);
-
-    // existingLivestockTransaction.setPurchaseQuantity(amendedLivestockTransaction.getPurchaseQuantity());
-
-    // return livestockTransactionRepository.save(existingLivestockTransaction);
-
-    // }
-
+    
     /**
      * Although transactions should be immutable, delete endpoint is useful in
      * development
