@@ -10,9 +10,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@DisplayName(value = "Livestock Service Class")
 public class LivestockServiceTest {
 
     private LivestockService service;
@@ -30,12 +32,14 @@ public class LivestockServiceTest {
     }
 
     @Test
+    @DisplayName("Should return an empty list when no livestock is present")
     void testGetAllLivestockInitiallyEmpty(){
         Mockito.when(mockLivestockRepository.findAll()).thenReturn(List.of());
         assertTrue(service.getAllLivestock().isEmpty());
     }
 
     @Test
+    @DisplayName("Should return a list of all saved livestock")
     void testGetAllLivestockInitiallyAfterAdding(){
         Mockito.when(mockLivestockRepository.save(Mockito.any(Livestock.class))).thenAnswer(invocation -> invocation.getArgument(0));
         Mockito.when(mockLivestockRepository.findAll()).thenReturn(List.of(livestock1, livestock2));
@@ -47,6 +51,7 @@ public class LivestockServiceTest {
     }
 
     @Test
+    @DisplayName("Should return existing livestock by id")
     void testGetExistingLivestockById(){
         Mockito.when(mockLivestockRepository.save(Mockito.any(Livestock.class))).thenAnswer(invocation -> invocation.getArgument(0));
         Mockito.when(mockLivestockRepository.findById(livestock1.getId())).thenReturn(Optional.of(livestock1));
@@ -57,6 +62,7 @@ public class LivestockServiceTest {
     }
 
     @Test
+    @DisplayName("Should return a list of existing livestock by name")
     void testGetAllExistingLivestockByName(){
         Mockito.when(mockLivestockRepository.save(Mockito.any(Livestock.class))).thenAnswer(invocation -> invocation.getArgument(0));
         Mockito.when(mockLivestockRepository.findByName(livestock2.getName())).thenReturn(List.of(livestock2));
@@ -66,7 +72,8 @@ public class LivestockServiceTest {
         assertEquals(livestock2.getName(), found.get(0).getName());
     }
 
-    @Test 
+    @Test
+    @DisplayName("Should return a list of existing livestock by provenance") 
     void testGetAllExistingLivestockByProvenance(){
         Mockito.when(mockLivestockRepository.save(Mockito.any(Livestock.class))).thenAnswer(invocation -> invocation.getArgument(0));
         Mockito.when(mockLivestockRepository.findByProvenance(livestock1.getProvenance())).thenReturn(List.of(livestock1));
@@ -78,6 +85,7 @@ public class LivestockServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw a No Such Element Exception for non-existent ids")
     void testGetLivestockNonExisting(){
         assertThrows(NoSuchElementException.class, () -> service.getLivestock(UUID.randomUUID()));
     }
