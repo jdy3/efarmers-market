@@ -1,10 +1,10 @@
-package com.jdy3.efarmers_market;
+package com.jdy3.efarmersmarket;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class AppTests {
 
 	@Test
 	void contextLoads() {
