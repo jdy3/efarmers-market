@@ -41,7 +41,6 @@ public class LivestockServiceTest {
     @Test
     @DisplayName("Should return a list of all saved livestock")
     void testGetAllLivestockInitiallyAfterAdding(){
-        Mockito.when(mockLivestockRepository.save(Mockito.any(Livestock.class))).thenAnswer(invocation -> invocation.getArgument(0));
         Mockito.when(mockLivestockRepository.findAll()).thenReturn(List.of(livestock1, livestock2));
         List<Livestock> livestock = service.getAllLivestock();
 
@@ -53,10 +52,11 @@ public class LivestockServiceTest {
     @Test
     @DisplayName("Should return existing livestock by id")
     void testGetExistingLivestockById(){
-        Mockito.when(mockLivestockRepository.save(Mockito.any(Livestock.class))).thenAnswer(invocation -> invocation.getArgument(0));
-        Mockito.when(mockLivestockRepository.findById(livestock1.getId())).thenReturn(Optional.of(livestock1));
-        service.createLivestock(livestock1);
-        Livestock found = service.getLivestock(livestock1.getId());
+        UUID id = UUID.randomUUID();
+        assertNotNull(id, "Generated UUID should not be null");
+    
+        Mockito.when(mockLivestockRepository.findById(id)).thenReturn(Optional.of(livestock1));
+        Livestock found = service.getLivestock(id);
 
         assertEquals(livestock1.getId(), found.getId());
     }
@@ -64,9 +64,7 @@ public class LivestockServiceTest {
     @Test
     @DisplayName("Should return a list of existing livestock by name")
     void testGetAllExistingLivestockByName(){
-        Mockito.when(mockLivestockRepository.save(Mockito.any(Livestock.class))).thenAnswer(invocation -> invocation.getArgument(0));
         Mockito.when(mockLivestockRepository.findByName(livestock2.getName())).thenReturn(List.of(livestock2));
-        service.createLivestock(livestock2);
         List<Livestock> found = service.getLivestockByName(livestock2.getName());
 
         assertEquals(livestock2.getName(), found.get(0).getName());
@@ -75,9 +73,7 @@ public class LivestockServiceTest {
     @Test
     @DisplayName("Should return a list of existing livestock by provenance") 
     void testGetAllExistingLivestockByProvenance(){
-        Mockito.when(mockLivestockRepository.save(Mockito.any(Livestock.class))).thenAnswer(invocation -> invocation.getArgument(0));
         Mockito.when(mockLivestockRepository.findByProvenance(livestock1.getProvenance())).thenReturn(List.of(livestock1));
-        service.createLivestock(livestock1);
         List<Livestock> found = service.getLivestockByProvenance(livestock1.getProvenance());
 
         assertEquals(livestock1.getProvenance(), found.get(0).getProvenance());
