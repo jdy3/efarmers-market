@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+import io.micrometer.common.lang.NonNull;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,7 @@ public abstract class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @NonNull
     protected UUID id;
 
     /**Map product id column to transaction tables*/
@@ -118,7 +120,10 @@ public abstract class Product {
     return price;
    }
 
-   public UUID getId(){
+   public @NonNull UUID getId(){
+    if (id == null) {
+        throw new IllegalStateException("product id must not be null");
+    }
     return id;
    }
     

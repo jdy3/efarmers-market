@@ -2,10 +2,12 @@ package com.jdy3.efarmersmarket.livestock;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import io.micrometer.common.lang.NonNull;
 
 /** Service layer for Livestock class */
 
@@ -31,16 +33,26 @@ public class LivestockService {
         return livestockRepository.findByProvenance(provenance);
     }
 
-    public Livestock getLivestock(UUID id){
+    public Livestock getLivestock(@NonNull UUID id){
+        if (id == null) {
+            throw new IllegalArgumentException("id must not be null");
+        }
         return livestockRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public Livestock createLivestock(Livestock livestock){
+        if (livestock == null) {
+            throw new IllegalArgumentException("livestock must not be null");
+        }
         livestockRepository.save(livestock);
         return livestock;
     }
 
-    public Livestock updateLivestock(UUID id, Livestock updatedLivestock){
+    public Livestock updateLivestock(@NonNull UUID id, Livestock updatedLivestock){
+        if (id == null) {
+            throw new IllegalArgumentException("id must not be null");
+        }
+
         Livestock existingLivestock = livestockRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
         existingLivestock.setDate(updatedLivestock.getDate());
@@ -61,8 +73,15 @@ public class LivestockService {
         return existingLivestock;
     }
 
-    public void deleteLivestock(UUID id){
+    public void deleteLivestock(@NonNull UUID id){
+        if (id == null) {
+            throw new IllegalArgumentException("id must not be null");
+        }
+
         Livestock livestock = livestockRepository.findById(id).orElseThrow(NoSuchElementException::new);
+
+        Objects.requireNonNull(livestock, "produce must not be null");
+
         livestockRepository.delete(livestock);
     }
 

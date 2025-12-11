@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.Objects;
+
+import io.micrometer.common.lang.NonNull;
 
 /** Service layer for Produce Transaction class */
 
@@ -29,10 +32,14 @@ public class ProduceTransactionService {
         return produceTransactionRepository.findAll();
     }
 
-    public List<ProduceTransaction> getProduceTransactionByProductId(UUID productId) {
+    public List<ProduceTransaction> getProduceTransactionByProductId(@NonNull UUID productId) {
         /** Fetch produce entity by its ID */
+        if (productId == null) {
+            throw new IllegalArgumentException("product id must not be null");
+        }
+
         Produce produce = produceRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException("Produce not found"));
+                .orElseThrow(() -> new NoSuchElementException("produce not found for id " + productId));
         return produceTransactionRepository.findByProduct(produce);
     }
 
@@ -49,12 +56,15 @@ public class ProduceTransactionService {
     }
 
     public ProduceTransaction createProduceTransaction(ProduceTransaction produceTransaction) {
-
         /** Retrieve product fields */
         UUID productId = produceTransaction.getTempProductId();
 
+        if (productId == null) {
+            throw new IllegalArgumentException("product id must not be null");
+        }
+
         Produce produce = produceRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException("Produce not found"));
+                .orElseThrow(() -> new NoSuchElementException("produce not found for product id " + productId));
         produceTransaction.setProduct(produce);
 
         BigDecimal productPrice = produce.getPrice();
@@ -105,6 +115,9 @@ public class ProduceTransactionService {
     public void deleteProduceTransaction(long transactionId) {
         ProduceTransaction produceTransaction = produceTransactionRepository.findById(transactionId)
                 .orElseThrow(NoSuchElementException::new);
+
+        Objects.requireNonNull(produceTransaction, "produce transaction must not be null");
+
         produceTransactionRepository.delete(produceTransaction);
     }
 

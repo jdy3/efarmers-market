@@ -4,8 +4,11 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.Objects;
 
 import org.springframework.stereotype.Service;
+
+import io.micrometer.common.lang.NonNull;
 
 
 /** Service layer for Produce class */
@@ -40,16 +43,25 @@ public class ProduceService {
         return produceRepository.findByProvenance(provenance);
     }
 
-    public Produce getProduce(UUID id){
+    public Produce getProduce(@NonNull UUID id){
+        if (id == null) {
+            throw new IllegalArgumentException("id must not be null");
+        }
         return produceRepository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
     public Produce createProduce(Produce produce){
-        produceRepository.save(produce);
-        return produce;
+        if (produce == null) {
+            throw new IllegalArgumentException("produce must not be null");
+        }
+        return produceRepository.save(produce);
     }
 
-    public Produce updateProduce(UUID id, Produce updatedProduce){
+    public Produce updateProduce(@NonNull UUID id, Produce updatedProduce){
+        if (id == null) {
+            throw new IllegalArgumentException("id must not be null");
+        }
+
         Produce existingProduce = produceRepository.findById(id).orElseThrow(NoSuchElementException::new);
 
         existingProduce.setDate(updatedProduce.getDate());
@@ -69,8 +81,15 @@ public class ProduceService {
         return existingProduce;
     }
 
-    public void deleteProduce(UUID id){
-        Produce produce = produceRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    public void deleteProduce(@NonNull UUID id){
+        if (id == null) {
+            throw new IllegalArgumentException("id must not be null");
+        }
+        
+        Produce produce = produceRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Produce not found for id: " + id));
+
+        Objects.requireNonNull(produce, "produce must not be null");
+
         produceRepository.delete(produce);
     }
 

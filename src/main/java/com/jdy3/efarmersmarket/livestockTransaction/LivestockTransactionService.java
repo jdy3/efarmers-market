@@ -9,6 +9,9 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.UUID;
+import java.util.Objects;
+
+import io.micrometer.common.lang.NonNull;
 
 /** Service layer for Livestock Transaction class */
 
@@ -29,10 +32,14 @@ public class LivestockTransactionService {
         return livestockTransactionRepository.findAll();
     }
 
-    public List<LivestockTransaction> getLivestockTransactionByProductId(UUID productId) {
-        /** Fetch produce entity by its ID */
+    public List<LivestockTransaction> getLivestockTransactionByProductId(@NonNull UUID productId) {
+        /** Fetch livestock entity by its ID */
+        if (productId == null) {
+            throw new IllegalArgumentException("product id must not be null");
+        }
+
         Livestock livestock = livestockRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException("Livestock not found"));
+                .orElseThrow(() -> new NoSuchElementException("livestock not found for id " + productId));
         return livestockTransactionRepository.findByProduct(livestock);
     }
 
@@ -49,9 +56,12 @@ public class LivestockTransactionService {
     }
 
     public LivestockTransaction createLivestockTransaction(LivestockTransaction livestockTransaction) {
-
         /** Retrieve product fields */
         UUID productId = livestockTransaction.getTempProductId();
+
+        if (productId == null) {
+            throw new IllegalArgumentException("product id must not be null");
+        }
 
         Livestock livestock = livestockRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Livestock not found"));
@@ -94,7 +104,7 @@ public class LivestockTransactionService {
 
         } else
             throw new IllegalArgumentException(
-                    "Purchase quantity must be greater than 0 and no more than the product quantitiy");
+                    "Purchase quantity must be greater than 0 and no more than the product quantity");
         return livestockTransaction;
     }
     
@@ -105,6 +115,9 @@ public class LivestockTransactionService {
     public void deleteLivestockTransaction(long transactionId) {
         LivestockTransaction livestockTransaction = livestockTransactionRepository.findById(transactionId)
                 .orElseThrow(NoSuchElementException::new);
+        
+        Objects.requireNonNull(livestockTransaction, "livestock transaction must not be null");
+
         livestockTransactionRepository.delete(livestockTransaction);
     }
 
