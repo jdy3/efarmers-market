@@ -126,7 +126,11 @@ public abstract class Product {
     }
     return id;
    }
-    
-    }
+
+   // Setter added for the purposes of testing
+   public void setId(UUID id) {
+    this.id = id;
+   } 
+}
 
 

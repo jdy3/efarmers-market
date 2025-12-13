@@ -24,11 +24,18 @@ public class LivestockServiceTest {
     @BeforeEach
     void setUp() {
         mockLivestockRepository = Mockito.mock(LivestockRepository.class);
+        
         service = new LivestockService(mockLivestockRepository);
+        
         livestock1 = new Livestock(LocalDate.now(), "product1", "", "description1", BigDecimal.valueOf(500.00), "Farm1",
                 "point1", BigDecimal.valueOf(1200.00), 24.0, 10, "certificate1", "breed1");
         livestock2 = new Livestock(LocalDate.now(), "product2", "", "description2", BigDecimal.valueOf(250.00), "Farm2",
                 "point2", BigDecimal.valueOf(600.00), 12.0, 20, "certificate2", "breed2");
+        
+        UUID id1 = UUID.randomUUID();
+        UUID id2 = UUID.randomUUID();
+        livestock1.setId(id1);
+        livestock2.setId(id2);
     }
 
     @Test
@@ -52,9 +59,9 @@ public class LivestockServiceTest {
     @Test
     @DisplayName("Should return existing livestock by id")
     void testGetExistingLivestockById(){
-        UUID id = UUID.randomUUID();
-        assertNotNull(id, "Generated UUID should not be null");
-    
+        UUID id = livestock1.getId();
+        assertNotNull(id, "Livestock id should not be null");
+
         Mockito.when(mockLivestockRepository.findById(id)).thenReturn(Optional.of(livestock1));
         Livestock found = service.getLivestock(id);
 
